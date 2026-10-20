@@ -1,0 +1,48 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: user_action
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  action_id:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  action_date:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  action_type:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  login_ip:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  user_id:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  user_name:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

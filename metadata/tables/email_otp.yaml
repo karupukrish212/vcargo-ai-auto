@@ -1,0 +1,50 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: email_otp
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  id:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  created_at:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  email:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  encrypted_otp:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+    queryable: false
+    notes: Keep credential/secret fields outside report queries.
+  expiry_time:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  verified:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

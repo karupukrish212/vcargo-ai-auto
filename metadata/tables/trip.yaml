@@ -1,0 +1,373 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: trip
+business_name: 'passengers or cargos trip details'
+description: 'passengers or cargos trip details with which vehicle, driver, and user are associated. Trip details include source and destination locations, start and end times, distance, duration, revenue, costs, profit, and other trip-specific information.'
+domain: transportation
+aliases: [trip details, trip details table, trip details information, trip details data, trip details dataset, trip details record, trip details records, trip details entry, trip details entries, trip details log, trip details logs, booking details, booking details table, booking details information, booking details data, booking details dataset, booking details record, booking details records, booking details entry, booking details entries, booking details log, booking details logs]
+queryable: true
+verified: true
+source: manual
+reviewed_by: 'Karupu'
+reviewed_on: '2026-10-12'
+columns:
+  tripid:
+    business_name: 'trip ID or booking identifier'
+    description: 'Unique identifier for each trip or booking.'
+    aliases: [trip id, trip_id, booking_id, booking id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  active:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: active_flag
+    value_encoding: numeric
+  branchcode:
+    profile: branch_code
+    queryable: false
+    verified: false
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Excluded from SQL agent use for trip at the project owner request.'
+  branchname:
+    profile: branch_name
+    queryable: false
+    verified: false
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Excluded from SQL agent use for trip at the project owner request.'
+  cancel:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: cancel_flag
+    value_encoding: numeric
+  createdon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: audit_created_text
+  modifiedon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  destination:
+    business_name: 'destination place or location'
+    description: 'The location where the trip or booking ends.'
+    aliases: [destination place, destination location, trip destination, trip destination place, trip destination location]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  destinationlat:
+    business_name: 'destination latitude'
+    description: 'The latitude coordinate of the destination location.'
+    aliases: [destination latitude coordinate, trip destination latitude, trip destination lat, trip destination lat coordinate]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  destinationlng:
+    business_name: 'destination longitude'
+    description: 'The longitude coordinate of the destination location.'
+    aliases: [destination longitude coordinate, trip destination longitude, trip destination lng, trip destination lng coordinate]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  distance:
+    business_name: 'distance of the trip'
+    description: 'The total distance of the trip in kilometers (km).'
+    aliases: [trip distance, trip length, trip distance traveled, trip distance covered]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  enddate:
+    business_name: 'Actual Trip Completion Date'
+    description: 'The date when the trip actually completed. This date and endtime are combined and stored in tripendtime.'
+    aliases: [trip end date, travel end date, actual completion date, trip completion date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed that enddate and endtime represent actual trip completion.'
+  endtime:
+    business_name: 'Actual Trip Completion Time'
+    description: 'The time of day when the trip actually completed. This time and enddate are combined and stored in tripendtime.'
+    aliases: [trip end time, travel end time, booking end time, actual completion time, trip completion time]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed that enddate and endtime represent actual trip completion.'
+  estimatedduration:
+    business_name: 'estimated duration of the trip'
+    description: 'The estimated duration of the trip stored as text in hours and minutes, for example 2 hours 30 minutes.'
+    aliases: [trip estimated duration, trip duration estimate, trip estimated time, trip estimated time duration]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  fuelcost:
+    business_name: 'estimated fuel cost of the trip'
+    description: 'The estimated cost of fuel for the trip or travel, in INR.'
+    aliases: [trip fuel cost, trip fuel expenses, trip fuel expenditure, trip fuel charges, trip fuel spending]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  goodstype:
+    business_name: 'goods type or category'
+    description: 'The type or category of goods being transported.'
+    aliases: [goods type, goods category, cargo type, cargo category, shipment type, shipment category]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  goodsvalue:
+    business_name: 'goods value or worth'
+    description: 'The monetary value or worth of the goods being transported, in INR.'
+    aliases: [goods value, goods worth, cargo value, cargo worth, transpoted goods worth, transported goods value, shipment value, shipment worth]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  goodsweight:
+    business_name: 'goods weight'
+    description: 'The weight of the goods being transported in kilograms (kg).'
+    aliases: [cargo weight, shipment weight, goods mass, cargo mass, shipment mass, transported goods weight]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  invoice_no:
+    business_name: 'invoice number of the trip'
+    description: 'The invoice number associated with the trip or booking or travel.'
+    aliases: [trip invoice number, travel invoice number, booking invoice number, trip invoice no, travel invoice no, booking invoice no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  notes:
+    business_name: ''
+    description: ''
+    aliases: []
+    queryable: false
+    verified: false
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Excluded from SQL agent use for trip at the project owner request.'
+  orgid:
+    profile: organisation_reference
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  otherexpenses:
+    business_name: 'other expenses of the trip'
+    description: 'Additional expenses incurred during the trip, in INR.'
+    aliases: [trip other expenses, travel other expenses, booking other expenses]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  profit:
+    business_name: 'profit from the trip'
+    description: 'Precalculated profit for this trip, stored in INR before trip completion. Read the stored profit column directly; do not recalculate it from revenue and costs.'
+    aliases: [trip profit, travel profit, booking profit]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed that this amount is stored before trip completion. Whether it is updated after completion or represents an estimate or final amount is unspecified; report it as the stored trip profit.'
+  revenue:
+    business_name: 'revenue from the trip'
+    description: 'Precalculated revenue for this trip, stored in INR before trip completion. Read the stored revenue column directly; do not derive it from other columns or invoices.'
+    aliases: [trip revenue, travel revenue, booking revenue]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed that this amount is stored before trip completion. Whether it is updated after completion or represents an estimate or final amount is unspecified; report it as the stored trip revenue.'
+  source:
+    business_name: 'source place or location'
+    description: 'The starting location or place of the trip or booking.'
+    aliases: [origin, departure, starting point, starting location, trip source, trip origin, trip departure, trip starting point, trip starting location]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  sourcelat:
+    business_name: 'source latitude'
+    description: 'The latitude of the starting location of the trip.'
+    aliases: [trip source latitude, trip origin latitude, from latitude, starting point latitude, starting location latitude]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  sourcelng:
+    business_name: 'source longitude'
+    description: 'The longitude of the starting location of the trip.'
+    aliases: [trip source longitude, trip origin longitude, from longitude, starting point longitude, starting location longitude]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  startdate:
+    business_name: 'start date of the trip'
+    description: 'The date when the trip is scheduled to start. This date and starttime are combined and stored in tripstarttime.'
+    aliases: [trip start date, travel start date, booking start date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  starttime:
+    business_name: 'start time of the trip'
+    description: 'The time of day when the trip is scheduled to start. This time and startdate are combined and stored in tripstarttime.'
+    aliases: [trip start time, travel start time, booking start time]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  status:
+    business_name: 'trip status'
+    description: 'Whether the trip record is ACTIVE or INACTIVE.'
+    aliases: [trip status, trip current status, travel status, booking status, trip state, trip condition]
+    value_encoding: text
+    values:
+      'ACTIVE': 'Active'
+      'INACTIVE': 'Inactive'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  tollcharges:
+    business_name: 'toll charges of the trip'
+    description: 'The total toll charges incurred during the trip, in INR.'
+    aliases: [trip toll charges, travel toll charges, booking toll charges]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  tripcost:
+    business_name: 'trip cost'
+    description: 'Precalculated cost for this trip, stored in INR before trip completion. Read the stored tripcost column directly; do not rebuild it by adding expense columns.'
+    aliases: [trip cost, travel cost, booking cost, trip amount, travel amount, booking amount, trip total cost, travel total cost, booking total cost]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed that this amount is stored before trip completion. Whether it is updated after completion or represents an estimate or final amount is unspecified; report it as the stored trip cost.'
+  tripendtime:
+    business_name: 'Actual Trip Completion Timestamp'
+    description: 'Stored actual trip completion date and time, already combined from enddate and endtime. Read tripendtime directly when the actual completion timestamp is needed.'
+    aliases: [trip end timestamp, trip end date and time, trip end datetime, actual completion timestamp, trip completion timestamp]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Represents the same actual completion event as enddate and endtime.'
+  tripstarttime:
+    business_name: 'Trip Start Date and Time'
+    description: 'Stored scheduled trip start date and time, already combined from startdate and starttime. Read tripstarttime directly when the combined timestamp is needed.'
+    aliases: [trip start timestamp, trip start date and time, trip start datetime, scheduled departure timestamp]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Represents the same scheduled start as startdate and starttime.'
+  triptrackid:
+    business_name: 'trip tracking ID'
+    description: 'The unique identifier for tracking the trip.'
+    aliases: [trip track id, trip_tracking_id, tracking id, trip identifier]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  triptype:
+    business_name: 'trip type'
+    description: 'What is transported on the trip: passenger for people, freight for goods.'
+    aliases: [trip type, travel type, booking type]
+    value_encoding: text
+    values:
+      'passenger': 'Transports people'
+      'freight': 'Transports goods'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  modifiedby:
+    profile: modified_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  customer:
+    business_name: 'trip assigned customer id'
+    description: 'The ID of the customer assigned to the trip and it is foreign key reference by the customer table.'
+    aliases: [trip customer id, trip_customer_id, assigned customer_id, assigned trip customer id, assigned trip customer, assigned customer, trip_customer]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  driver:
+    business_name: 'assigned trip driver id'
+    description: 'The ID of the driver assigned to the trip and it is foreign key reference by the tdriver table.'
+    aliases: [assigned driver id, assigned trip driver id, assigned trip driver, assigned driver, trip_driver_id, trip_driver]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  userid:
+    business_name: 'Trip Creator User ID'
+    description: 'User ID of the user who created this trip row, referencing users.userid through a physical foreign key.'
+    aliases: [trip creator user id, trip created by user id, trip user id]
+    semantic_type: trip_record_created_by
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner explicitly confirmed that this identifies the user who created the trip table row. The raw schema confirms a BIGINT foreign key to the primary key users.userid. This creator role is confirmed for trip only; it does not approve a shared userid role for other tables.'
+  vehicle:
+    business_name: 'Vehicle ID assigned to the trip'
+    description: 'vehicle ID of the vehicle assigned to the trip and it is foreign key reference by the tvehicle table.'
+    aliases: [trip vehicle id, trip_vehicle_id, assigned vehicle id, assigned trip vehicle id, assigned trip vehicle, assigned vehicle, trip_vehicle]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'

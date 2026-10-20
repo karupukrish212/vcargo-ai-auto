@@ -1,0 +1,130 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: companyprofile
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  companyprofileid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  active:
+    verified: false
+    source: schema_generated
+    profile: active_flag
+    value_encoding: numeric
+  branch:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+  cancel:
+    verified: false
+    source: schema_generated
+    profile: cancel_flag
+    value_encoding: numeric
+  cancelremarks:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  createdon:
+    verified: false
+    source: schema_generated
+    profile: audit_created_text
+  modifiedon:
+    verified: false
+    source: schema_generated
+    profile: audit_modified_text
+  companycode:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  companylogo:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  companyname:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  createdby:
+    profile: created_by_user
+    verified: false
+    source: schema_generated
+  emailaddress:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  establishedyear:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  gstno:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  orgid:
+    profile: organisation_reference
+    verified: false
+    source: schema_generated
+  ownername:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  panno:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  phoneno:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  termsandconditions:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  modifiedby:
+    profile: modified_by_user
+    verified: false
+    source: schema_generated
+  website:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

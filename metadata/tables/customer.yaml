@@ -1,0 +1,197 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: customer
+business_name: 'customer details'
+description: 'Table containing customer details'
+domain: customer
+aliases: []
+queryable: true
+verified: true
+source: manual
+reviewed_by: 'Karupu'
+reviewed_on: '2026-10-12'
+columns:
+  customerid:
+    business_name: 'Customer ID'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the unique identifier for a customer. It is a primary key of this table.'
+    aliases: [customer id, customer_id, customer identifier, customer unique id]
+    verified: true
+    source: manual
+  active:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: active_flag
+    value_encoding: numeric
+  branch:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+    queryable: false
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+    queryable: false
+  cancel:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: cancel_flag
+    value_encoding: numeric
+  createdon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: audit_created_text
+  modifiedon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  customercode:
+    business_name: 'customer code'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the code assigned to a customer.'
+    aliases: [customer code, customer_code, customer identifier code]
+    verified: true
+    source: manual
+  customername:
+    business_name: 'customer name'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the name of the customer.'
+    aliases: [customer name, customer_name, customer full name, name of customer, full name of customer,cust_name, custname,cust name]
+    verified: true
+    source: manual
+  customertype:
+    business_name: 'customer type'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the type of the customer.'
+    aliases: [customer type, customer_type, customer category, customer classification]
+    queryable: false
+    verified: false
+    source: user_provided
+    notes: 'Excluded from SQL agent use: the project owner confirmed this field was created in error.'
+  email:
+    business_name: 'email'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the email address of the customer.'
+    aliases: [customer email, customer_email_address, email address of customer]
+    verified: true
+    source: manual
+  gstnumber:
+    business_name: 'GST number'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the GST number of the customer.'
+    aliases: [customer GST number, customer_gst_number, GST number of customer]
+    verified: true
+    source: manual
+  image:
+    business_name: 'customer image'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'Customer image or photo stored as binary image data in a LONGBLOB column.'
+    aliases: [customer image, customer_image, customer photos]
+    queryable: false
+    verified: false
+    source: user_provided
+    notes: 'Excluded from SQL agent use: the project owner confirmed this field was created in error.'
+  orgid:
+    profile: organisation_reference
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  pannumber:
+    business_name: 'customer pan number'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the PAN number of the customer.'
+    aliases: [customer pan number, customer_pan_number, pan number of customer, cust pan, cust_pan, custpan]
+    verified: true
+    source: manual
+  phonenumber:
+    business_name: 'customer phone number'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the phone number of the customer.'
+    aliases: [customer phone number, customer_phone_number, phone number of customer, customer contact number, customer_contact_number, customer mobile number, customer_mobile_number, customer mobile, customer_mobile, cust phone, cust_phone, custphone]
+    verified: true
+    source: manual
+  pocemail:
+    business_name: 'point of contact email'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the email address of the point of contact.'
+    aliases: [poc email, point of contact email, poc_email]
+    verified: true
+    source: manual
+  pocname:
+    business_name: 'point of contact name'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the name of the point of contact.'
+    aliases: [poc name, point of contact name, poc_name]
+    verified: true
+    source: manual
+  pocnumber:
+    business_name: 'point of contact phone number'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the phone number of the point of contact.'
+    aliases: [poc phone number, point of contact phone number, poc_phone_number]
+    verified: true
+    source: manual
+  salesperson:
+    business_name: 'salesperson'
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    description: 'This is the salesperson associated with the customer.'
+    aliases: [customer salesperson, customer_salesperson]
+    verified: true
+    source: manual
+    queryable: false
+  screencode:
+    business_name: ''
+    description: ''
+    aliases: []
+    queryable: false
+    verified: false
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Excluded from SQL agent use: the project owner confirmed this field was created in error.'
+  screenname:
+    business_name: ''
+    description: ''
+    aliases: []
+    queryable: false
+    verified: false
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Excluded from SQL agent use: the project owner confirmed this field was created in error.'
+  modifiedby:
+    profile: modified_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'

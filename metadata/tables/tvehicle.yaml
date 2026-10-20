@@ -1,0 +1,305 @@
+# Editable business metadata reviewed by the project owner; individual drafts remain.
+table_name: tvehicle
+business_name: 'Vehicle Details'
+description: 'it represent the vehicle details'
+domain: transport
+aliases: []
+queryable: true
+verified: true
+source: manual
+reviewed_by: 'Karupu'
+reviewed_on: '2026-10-09'
+columns:
+  tvehicleid:
+    business_name: 'vehicle id'
+    description: 'This is the unique identifier for a vehicle. It is a primary key of this table.'
+    aliases: [vehicle id, vehicle_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  active:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: active_flag
+    value_encoding: text
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+  branchname:
+    profile: branch_name
+    verified: false
+    source: schema_generated
+  cancel:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: cancel_flag
+    value_encoding: numeric
+  capacity:
+    business_name: Vehicle Load Capacity
+    description: 'Maximum load capacity of the vehicle, measured in tons.'
+    aliases: [vehicle load capacity, load capacity, capacity in tons]
+    semantic_type: vehicle_load_capacity_tons
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner confirmed the unit as tons. Physical column is VARCHAR(100); numeric storage format and conversion to other mass units are not defined.'
+  chassisnumber:
+    business_name: 'chassis number'
+    description: 'The unique identifier for the vehicle chassis.'
+    aliases: [chassis number, chassis_id, chassis_no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  createdon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: audit_created_text
+  modifiedon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  currentlocation:
+    business_name: 'vehicle current location'
+    description: 'It represent the current location of the vehicle. so that we can easily track the vehicle and assign the trip to the vehicle based on the location.'
+    aliases: [vehicle location, v location, vehicle_location]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  driver:
+    business_name: 'driver name'
+    description: 'The name of the driver assigned to the vehicle.'
+    aliases: [assigned driver name, driver name]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developer-confirmed driver name matching tdriver.name, stored as text without a physical foreign key. Driver names are not declared unique in tdriver; this confirmation does not approve a name-based identity join.'
+  driverphone:
+    business_name: 'driver phone'
+    description: 'The phone number of the driver assigned to the vehicle.'
+    aliases: [driver phone, driver_phone]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  droplocation:
+    business_name: 'drop location'
+    description: 'The location where the vehicle is scheduled to drop off passengers or cargo.'
+    aliases: [drop location, drop_location, drop loc, drop_loc, drop point, drop_point, drop place, drop_place]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  enginenumber:
+    business_name: 'vehicle engine number'
+    description: 'The unique identifier for the vehicle engine.'
+    aliases: [engine number, engine_id, engine_no, engine no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  fitnessexpiry:
+    business_name: 'fitness expiry date'
+    description: "The date when the vehicle's fitness certificate expires."
+    aliases: [fitness expiry, fitness expiry date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  fuelefficiency:
+    business_name: 'fuel efficiency'
+    description: 'Vehicle fuel efficiency measured in kilometres per litre (km/l).'
+    aliases: [fuel efficiency, fuel_efficiency, fuel efficiency km/l, fuel efficiency km/ltr, vehicle mileage, vehicle mileage km/l, vehicle mileage km/ltr]
+    semantic_type: vehicle_fuel_efficiency_km_per_litre
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner confirmed kilometres per litre as the unit. Physical column is VARCHAR(50); numeric storage and conversion rules are not defined.'
+  hirecost:
+    business_name: 'hire cost'
+    description: 'One-time vehicle hire amount in Indian rupees (INR).'
+    aliases: [hire cost, hire_cost, vehicle hire cost, vehicle hire cost in INR, one-time hire amount]
+    semantic_type: vehicle_hire_cost_inr
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner confirmed a one-time hire amount in INR. Physical column is DECIMAL(19,2). This is an amount, not a daily or per-trip rate.'
+  hiredate:
+    business_name: 'hire date'
+    description: 'The date when the vehicle was hired.'
+    aliases: [hire date, hire_date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  insuranceexpiry:
+    business_name: 'insurance expiry date'
+    description: "The date when the vehicle's insurance certificate expires."
+    aliases: [insurance expiry, insurance expiry date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  lastservice:
+    business_name: 'last service date'
+    description: 'The date when the vehicle was last serviced.'
+    aliases: [vehicle last service, vehicle_last_service, last service date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  maintenancerequired:
+    business_name: 'Maintenance Required'
+    description: 'Indicates whether maintenance is required or not for the vehicle.'
+    aliases: [maintenance required, maintenance_required]
+    semantic_type: status_flag
+    values:
+      '0': Maintenance not required
+      '1': Maintenance required
+    value_encoding: numeric
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner confirmed 1 means maintenance is required and 0 means it is not required. Physical column is BIT(1).'
+  model:
+    business_name: 'vehicle model'
+    description: 'The model of the vehicle.'
+    aliases: [model, vehicle_model]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  nextservice:
+    business_name: 'vehicle next service date'
+    description: 'The date when the vehicle is scheduled for the next service.'
+    aliases: [next service, next_service, next service date, vehicle next service date, vehicle_next_service_date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  orgid:
+    profile: organisation_reference
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  ownername:
+    business_name: 'vehicle owner name'
+    description: 'The name of the vehicle owner.'
+    aliases: [owner name, owner_name, vehicle owner, vehicle_owner_name]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  permittype:
+    business_name: 'vehicle permit type'
+    description: 'The type of permit the vehicle has like state permit, National permit.'
+    aliases: [permit type, permit_type, vehicle permit, vehicle_permit_type]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  pickuplocation:
+    business_name: Unused Pickup Location
+    description: 'Column created in error and excluded from SQL agent reporting.'
+    aliases: []
+    queryable: false
+    verified: false
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner explicitly requested that this column not be considered. This metadata exclusion does not remove the physical database column.'
+  pucexpiry:
+    business_name: 'PUC expiry date'
+    description: "The date when the vehicle's PUC certificate expires."
+    aliases: [puc expiry, puc_expiry, puc expiry date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  registrationtype:
+    business_name: 'vehicle registration type'
+    description: 'The type of registration the vehicle has like tourist, commercial private.'
+    aliases: [registration type, registration_type, vehicle registration, vehicle_registration_type]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  type:
+    business_name: 'vehicle type'
+    description: 'The type of the vehicle like car, truck, tanker, trailer.'
+    aliases: [vehicle type, vehicle_type]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  modifiedby:
+    profile: modified_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  vehiclenumber:
+    business_name: 'vehicle registration number'
+    description: 'The unique identifier for the vehicle.'
+    aliases: [vehicle number, vehicle_number, registration number, registration_number, vehicle_no, vehicle no, vehicle_registration no, vehicle_registration_no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  year:
+    business_name: 'vehicle manufacture year'
+    description: 'The year the vehicle was manufactured.'
+    aliases: [vehicle year, vehicle_year, manufacture year, manufacture_year, vehicle manufacture year]
+    verified: false
+    source: schema_generated
+  userid:
+    business_name: 'Vehicle Creator User ID'
+    description: 'User ID of the user who created this vehicle row, referencing users.userid through a physical foreign key.'
+    aliases: [vehicle creator user id, vehicle created by user id, vehicle user id]
+    semantic_type: vehicle_record_created_by
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner explicitly confirmed that this identifies the user who created the vehicle table row. The raw schema confirms a BIGINT foreign key to the primary key users.userid. This creator role is confirmed for tvehicle only; it does not approve a shared userid role for other tables.'

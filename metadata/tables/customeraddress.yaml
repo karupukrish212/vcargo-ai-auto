@@ -1,0 +1,60 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: customeraddress
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  customeraddressid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  additionaladdress:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  city:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  pincode:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  primaryaddress:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  state:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  type:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  customerid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

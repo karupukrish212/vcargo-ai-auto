@@ -1,0 +1,125 @@
+# Shared definitions. Confirm meanings/timezone, add reviewer details, then verify.
+# Every per-table column still needs its own review; table verification is independent.
+profiles:
+  created_by_user:
+    business_name: Created By User
+    description: 'User ID of the user who created the record, referencing users.userid.'
+    aliases: [created by, record creator]
+    semantic_type: record_created_by
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Shared meaning confirmed by the project owner. Record per-table user-key relationships separately; source datatypes and value encoding may differ.'
+  modified_by_user:
+    business_name: Modified By User
+    description: 'User ID of the user who last modified the record, referencing users.userid.'
+    aliases: [modified by, record modifier]
+    semantic_type: record_modified_by
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Shared meaning confirmed by the project owner. Record per-table user-key relationships separately; source datatypes and value encoding may differ.'
+  organisation_reference:
+    business_name: Organisation Reference
+    description: 'Organisation reference for the record, logically referencing users.userid.'
+    aliases: [organisation id, organization id, org id]
+    semantic_type: organisation_reference
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner confirmed that orgid references users.userid across tables. Record per-table joins separately; this profile does not establish a physical foreign key or tenant access rule.'
+  branch_code:
+    business_name: Branch Code
+    description: 'DRAFT: confirm which branch this code identifies for the record.'
+    aliases: [branch code]
+    semantic_type: branch_code
+    verified: false
+    source: manual
+  branch_name:
+    business_name: Branch Name
+    description: 'DRAFT: confirm which branch this name identifies for the record.'
+    aliases: [branch name]
+    semantic_type: branch_name
+    verified: false
+    source: manual
+  related_user:
+    business_name: Related User ID
+    description: 'DRAFT: define the role of the user associated with this record.'
+    aliases: [user id]
+    semantic_type: user_reference
+    verified: false
+    source: manual
+    notes: 'Do not assume userid identifies the record creator. Confirm its role and target separately for each applicable table.'
+  audit_created_text:
+    business_name: Record Creation Timestamp
+    description: 'Timestamp when the record was created.'
+    semantic_type: record_created_at
+    date:
+      storage: text
+      mysql_format: '%d-%m-%Y %h:%i:%s %p'
+      timezone: Asia/Kolkata
+      invalid_value_policy: fail_closed
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  audit_modified_text:
+    business_name: Record Modification Timestamp
+    description: 'Timestamp when the record was last modified.'
+    semantic_type: record_modified_at
+    date:
+      storage: text
+      mysql_format: '%d-%m-%Y %h:%i:%s %p'
+      timezone: Asia/Kolkata
+      invalid_value_policy: fail_closed
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  audit_created_native:
+    business_name: Record Creation Timestamp
+    description: 'Timestamp when the record was created, stored as a native temporal value.'
+    semantic_type: record_created_at
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  audit_modified_native:
+    business_name: Record Modification Timestamp
+    description: 'Timestamp when the record was last modified, stored as a native temporal value.'
+    semantic_type: record_modified_at
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  active_flag:
+    business_name: Active Flag
+    description: 'User-confirmed flag: 1 means active and 0 means inactive.'
+    semantic_type: status_flag
+    values:
+      '0': INACTIVE
+      '1': ACTIVE
+    verified: true
+    source: user_provided
+    reviewed_by: project_owner_chat_confirmation
+    reviewed_on: '2026-10-09'
+  cancel_flag:
+    business_name: Cancellation Flag
+    description: 'User-confirmed flag: 1 means cancelled and 0 means not cancelled.'
+    semantic_type: status_flag
+    values:
+      '0': NOT_CANCELLED
+      '1': CANCELLED
+    verified: true
+    source: user_provided
+    reviewed_by: project_owner_chat_confirmation
+    reviewed_on: '2026-10-09'

@@ -1,0 +1,81 @@
+# Reviewed business metadata for trip invoice line items.
+table_name: tripinvoiceitem
+business_name: 'Trip Invoice Item Details'
+description: 'Each row represents one charge or service on a trip invoice. Multiple items can belong to the same invoice, linked through invoiceid to tripinvoice.invoiceid.'
+domain: transportation
+aliases: []
+queryable: true
+verified: true
+source: manual
+reviewed_by: 'Karupu'
+reviewed_on: 2026-10-13
+columns:
+  invoiceitemid:
+    business_name: 'Invoice Item ID'
+    description: 'Unique identifier for each invoice item. It serves as the primary key for this table.'
+    aliases: [invoice item id, invoice_item_id, invoice item identifier, invoice item unique id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  amount:
+    business_name: 'Amount of Invoice Item'
+    description: 'The total amount stored for this invoice item or service, in INR.'
+    aliases: [invoice item amount, item amount, itm amt, inv item amount, invoice item total, invoice item charge, invoice item cost, invoice item price]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Read the stored item amount directly. No formula equating amount to quantity multiplied by rate, or item totals to invoice subtotal, has been approved.'
+  description:
+    business_name: 'Description of Invoice Item'
+    description: 'A brief description of the invoice item or particular service.'
+    aliases: [invoice item description, item description, inv_desc, inv desc, itm desc, inv item description]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  itemcode:
+    business_name: 'Item Code'
+    description: 'The code representing the item in the invoice.'
+    aliases: [item code, itm code, inv_item_code]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  quantity:
+    business_name: 'Quantity of Invoice Item'
+    description: 'Invoice item quantity, rounded by the backend before storage as an integer. Interpret it using the unit and item description, for example hours for driver waiting charges, toll counts for toll charges, or kilograms for luggage charges.'
+    aliases: [quantity, qty, inv_qty, inv quantity, inv item quantity, inv_item_qty, inv item qty, invoice item quantity, invoice item qty]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The project owner confirmed that the backend rounds fractional quantities and stores the rounded integer in quantity. Read the stored value directly; do not round again or reconstruct the original fractional quantity. The exact rounding algorithm has not been specified. Do not add quantities across different units or unrelated services.'
+  rate:
+    business_name: 'Rate of Invoice Item'
+    description: 'The stored price in INR per unit of quantity for this invoice item. The unit column identifies the measurement unit.'
+    aliases: [rate, rt, inv_rt, inv rate, inv item rate, inv_item_rt, inv item rt, invoice item rate, invoice item rt, rate per quantity, price per qty, cost per quantity, charge per qty, price per unit, cost per unit, charge per unit]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Use the stored rate as the unit price. No rate recalculation or conversion between measurement units is approved.'
+  unit:
+    business_name: 'Unit of Invoice Item'
+    description: 'The unit of measurement for the invoice item. for eg, trip, KM, hour,day, ton, kg, litre, etc. It represents the unit in which the quantity is measured.'
+    aliases: [unit, unt, inv_unt, inv unit, inv item unit, inv_item_unt, inv item unt, invoice item unit, invoice item unt]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The description gives examples of measurement units, not a confirmed exhaustive code list. No unit conversion rules have been approved.'
+  invoiceid:
+    business_name: 'Parent Trip Invoice ID'
+    description: 'ID of the parent trip invoice, referencing tripinvoice.invoiceid through a physical foreign key.'
+    aliases: [trip invoice id, trip_invoice_id, inv_id, inv id, inv item invoice id, inv_item_invoice_id, inv item invoice identifier, invoice unique id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Many items may reference one invoice. Preserve one row per invoice when aggregating parent invoice amounts to avoid counting the same invoice total once for each item.'

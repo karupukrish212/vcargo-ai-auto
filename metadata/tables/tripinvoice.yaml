@@ -1,0 +1,257 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: tripinvoice
+business_name: 'trip invoice details'
+description: 'Details of invoices related to trips'
+domain: transportation
+aliases: []
+queryable: true
+verified: true
+source: manual
+reviewed_by: 'Karupu'
+reviewed_on: 2026-10-12
+columns:
+  invoiceid:
+    business_name: 'trip invoice id'
+    description: 'Unique identifier for the trip invoice and this is the primary key of this table.'
+    aliases: [trip invoice id, trip_invoice_id, trip invoice identifier, trip invoice unique id, booking invoice id, booking_invoice_id, booking invoice identifier, booking invoice unique id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  active:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: active_flag
+    value_encoding: numeric
+  amountpaid:
+    business_name: 'customer paid amount'
+    description: 'Amount paid by the customer for the trip invoice, stored in INR.'
+    aliases: [amount paid, amount_paid, paid amount, paid_amount, customer paid amount, customer_paid_amount, customer paid, customer_paid]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Read the stored INR amount directly; no recalculation formula is approved.'
+  balancedue:
+    business_name: 'balance due'
+    description: 'Balance due from the customer for the trip invoice, stored in INR.'
+    aliases: [balance due, balance_due, due amount, due_amount, customer balance due, customer_balance_due, customer due amount, customer_due_amount, customer balance amount, customer_balance_amount, customer due amt, customer_due_amt, customer balance amt, customer_balance_amt]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Read the stored INR amount directly; no recalculation formula is approved.'
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+    queryable: false
+  branchname:
+    profile: branch_name
+    verified: false
+    source: schema_generated
+    queryable: false
+  cancel:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: cancel_flag
+    value_encoding: numeric
+  createdon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: audit_created_text
+  modifiedon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  discount:
+    business_name: 'trip discount amount'
+    description: 'Discount amount applied to the trip invoice, stored in INR.'
+    aliases: [discount amount, discount_amount, trip discount, trip_discount, trip discount amt, trip_discount_amt, trip discount amount, trip_discount_amount]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Read the stored INR amount directly; no recalculation formula is approved.'
+  duedate:
+    business_name: 'trip invoice due date'
+    description: 'it represent the due date for the trip invoice.'
+    aliases: [due date, due_date, invoice due date, invoice_due_date, last date to pay trip amount, last date to pay trip_amount, last date to pay invoice amount, last date to pay invoice_amount]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  issuedate:
+    business_name: 'trip invoice issue date'
+    description: 'it represent the issue date for the trip invoice.'
+    aliases: [issue date, issue_date, invoice issue date, invoice_issue_date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  notes:
+    business_name: 'trip invoice notes'
+    description: 'it represent the take hints or notes for the trip invoice.'
+    aliases: [invoice notes, invoice_notes]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  orgid:
+    profile: organisation_reference
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  paymentdate:
+    business_name: 'First Invoice Payment Date'
+    description: 'Date of the first payment made for the trip invoice.'
+    aliases: [payment date, payment_date, invoice payment date, invoice_payment_date, first payment date, first invoice payment date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'For partial payments this records the first payment date. It does not identify the latest payment or full-settlement date.'
+  paymentmethod:
+    business_name: 'trip invoice payment method'
+    description: 'Payment method recorded for the trip invoice, using the confirmed stored text codes.'
+    aliases: [payment method, payment_method, invoice payment method, invoice_payment_method, payment type, payment_type, trip payment type, trip_payment_type, trip invoice payment type, trip_invoice_payment_type]
+    value_encoding: text
+    values:
+      'bank_transfer': 'Bank transfer'
+      'cash': 'Cash'
+      'cheque': 'Cheque'
+      'credit/debit_card': 'Credit or debit card'
+      'upi': 'UPI'
+      'online_payment': 'Online payment'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Use these exact stored values, including the slash in credit/debit_card. Card payments share one stored code.'
+  status:
+    business_name: 'trip invoice status'
+    description: 'Invoice status stored in lowercase, including draft, pending, paid, cancelled, and overdue.'
+    aliases: [invoice status, invoice_status, payment status, payment_status, trip invoice status, trip_invoice_status, trip invoice state, trip_invoice_state]
+    value_encoding: text
+    values:
+      'draft': 'Draft invoice'
+      'pending': 'Pending invoice'
+      'paid': 'Paid invoice'
+      'cancelled': 'Cancelled invoice'
+      'overdue': 'Overdue invoice'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed lowercase spelling for the statuses listed in the reviewed draft. Any additional codes need confirmation before use. No automatic equivalence with the active or cancel flags is defined.'
+  subtotal:
+    business_name: 'trip invoice subtotal'
+    description: 'Subtotal amount for the trip invoice, stored in INR.'
+    aliases: [subtotal amount, subtotal_amount, invoice subtotal, invoice_subtotal]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Read the stored INR amount directly; no recalculation formula is approved.'
+  taxamount:
+    business_name: 'trip invoice tax amount'
+    description: 'Tax amount for the trip invoice, stored in INR.'
+    aliases: [trip tax amount, trip_tax_amount, invoice tax amount, invoice_tax_amount]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Read the stored INR amount directly; no recalculation formula is approved.'
+  taxrate:
+    business_name: 'trip invoice tax rate'
+    description: 'Precalculated tax rate stored for this invoice. Read taxrate directly without recalculating or rescaling it.'
+    aliases: [tax rate, tax_rate, invoice tax rate, invoice_tax_rate]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Approved as a stored numeric rate. Percentage encoding remains unspecified; do not append a percent sign, convert between percentage and fraction, or derive taxamount from this value without further confirmation.'
+  totalamount:
+    business_name: 'trip invoice total amount'
+    description: 'Total amount for the trip invoice, stored in INR.'
+    aliases: [total amount, total_amount, invoice total, invoice_total]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'Read the stored INR amount directly; no recalculation formula is approved.'
+  tripdetails:
+    business_name: 'trip invoice trip details'
+    description: 'it represent the details of the trip for the trip invoice.'
+    aliases: [trip details, trip_details, invoice trip details, invoice_trip_details]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  updatedby:
+    business_name: 'trip invoice updated by'
+    description: 'User ID of the user who updated the trip invoice, logically referencing users.userid.'
+    aliases: [updated by, updated_by, invoice updated by, invoice_updated_by]
+    semantic_type: record_modified_by
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed the reference to users.userid. Source is VARCHAR(255), target is BIGINT; no physical foreign key is declared. Text encoding and conversion rules need validation before joins; do not rely on implicit numeric coercion.'
+  customer:
+    business_name: 'trip invoice customer'
+    description: 'Customer ID for the trip invoice, referencing customer.customerid through a physical foreign key.'
+    aliases: [customer, customer_id, invoice customer, invoice_customer]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  tdriverid:
+    business_name: 'trip invoice driver id'
+    description: 'Driver ID for the trip invoice, referencing tdriver.tdriverid through a physical foreign key.'
+    aliases: [driver id, driver_id, invoice driver id, invoice_driver_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  tripid:
+    business_name: 'trip invoice trip id'
+    description: 'Trip ID for the invoice, referencing trip.tripid through a physical foreign key.'
+    aliases: [trip id, trip_id, invoice trip id, invoice_trip_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The saved schema has no unique constraint on tripid in tripinvoice. Do not assume one invoice per trip or duplicate trip amounts when joining invoices.'
+  tvehicleid:
+    business_name: 'trip invoice vehicle id'
+    description: 'Vehicle ID for the trip invoice, referencing tvehicle.tvehicleid through a physical foreign key.'
+    aliases: [vehicle id, vehicle_id, invoice vehicle id, invoice_vehicle_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'

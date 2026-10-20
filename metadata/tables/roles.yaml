@@ -1,0 +1,49 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: roles
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  rolesid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  active:
+    verified: false
+    source: schema_generated
+    profile: active_flag
+    value_encoding: numeric
+  createdon:
+    verified: false
+    source: schema_generated
+    profile: audit_created_text
+  modifiedon:
+    verified: false
+    source: schema_generated
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: false
+    source: schema_generated
+  orgid:
+    profile: organisation_reference
+    verified: false
+    source: schema_generated
+  role:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  modifiedby:
+    profile: modified_by_user
+    verified: false
+    source: schema_generated

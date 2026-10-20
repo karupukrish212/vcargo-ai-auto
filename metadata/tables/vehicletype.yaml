@@ -1,0 +1,124 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: vehicletype
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  vehicletypeid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  active:
+    verified: false
+    source: schema_generated
+    profile: active_flag
+    value_encoding: numeric
+  branch:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+  cancel:
+    verified: false
+    source: schema_generated
+    profile: cancel_flag
+    value_encoding: numeric
+  createdon:
+    verified: false
+    source: schema_generated
+    profile: audit_created_text
+  modifiedon:
+    verified: false
+    source: schema_generated
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: false
+    source: schema_generated
+  hight:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  length:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  mileage:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  orgid:
+    profile: organisation_reference
+    verified: false
+    source: schema_generated
+  screencode:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  screenname:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  status:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  unit:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  modifiedby:
+    profile: modified_by_user
+    verified: false
+    source: schema_generated
+  vehiclesqftcapacity:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  vehicletonnagecapacity:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  vehicletype:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  width:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

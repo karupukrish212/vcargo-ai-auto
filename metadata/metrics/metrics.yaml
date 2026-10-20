@@ -1,0 +1,262 @@
+# Reviewed report definitions: seven primary metrics and six missing-value counts.
+# See ../REPORT_REVIEW.md for confirmed scope, date, NULL, and balance rules.
+# These expressions sum/count stored facts; they do not recalculate per-row amounts.
+metrics:
+  completed_trip_count:
+    business_name: Recorded Completed Trip Count
+    description: 'Count active, non-cancelled trip records that have an actual completion date within the requested completion-date period.'
+    aliases: [completed trip count, number of completed trips]
+    expression: 'COUNT(trip.enddate)'
+    required_columns: [trip.tripid, trip.enddate, trip.active, trip.cancel]
+    required_filters:
+      - column: trip.active
+        operator: '='
+        value: 1
+      - column: trip.cancel
+        operator: '='
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'R1. The owner confirmed active = 1 and cancel = 0. One source row is one trip. Use actual completion date enddate for period filters and date grouping in Asia/Kolkata; NULL completion dates are not counted. Count directly from trip without expanding rows through invoice or item joins.'
+  stored_trip_revenue:
+    business_name: Total Stored Trip Revenue
+    description: 'Sum the stored INR revenue for active, non-cancelled trips selected and grouped by actual completion date (enddate).'
+    aliases: [total trip revenue, total stored trip revenue]
+    expression: 'SUM(trip.revenue)'
+    required_columns: [trip.revenue, trip.enddate, trip.active, trip.cancel]
+    required_filters:
+      - column: trip.active
+        operator: '='
+        value: 1
+      - column: trip.cancel
+        operator: '='
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'R2. Filter and group by actual completion date trip.enddate in Asia/Kolkata, using active = 1 and cancel = 0. Exclude trips without an enddate from completion-date reports. Sum each stored revenue once; do not substitute invoice totals or payments. The amount may predate completion and is not certified as final revenue. Sum known amounts and always display stored_trip_revenue_missing_count using the same business scope and grouping. Keep a NULL sum when there are no contributing known amounts; do not substitute zero.'
+  stored_trip_cost:
+    business_name: Total Stored Trip Cost
+    description: 'Sum the stored INR trip cost for active, non-cancelled trips selected and grouped by actual completion date (enddate).'
+    aliases: [total trip cost, total stored trip cost]
+    expression: 'SUM(trip.tripcost)'
+    required_columns: [trip.tripcost, trip.enddate, trip.active, trip.cancel]
+    required_filters:
+      - column: trip.active
+        operator: '='
+        value: 1
+      - column: trip.cancel
+        operator: '='
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'R2. Use the same active, non-cancelled trips and actual completion-date period/grouping as the revenue and profit metrics. Sum each stored trip cost once without rebuilding it from expense components. Sum known amounts and always display stored_trip_cost_missing_count using the same business scope and grouping. Keep a NULL sum when there are no contributing known amounts; do not substitute zero.'
+  stored_trip_profit:
+    business_name: Total Stored Trip Profit
+    description: 'Sum the stored INR profit for active, non-cancelled trips selected and grouped by actual completion date (enddate).'
+    aliases: [total trip profit, total stored trip profit]
+    expression: 'SUM(trip.profit)'
+    required_columns: [trip.profit, trip.enddate, trip.active, trip.cancel]
+    required_filters:
+      - column: trip.active
+        operator: '='
+        value: 1
+      - column: trip.cancel
+        operator: '='
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'R2. Use the same active, non-cancelled trips and actual completion-date period/grouping as the revenue and cost metrics. Sum each stored profit once; do not calculate revenue minus cost. Sum known amounts and always display stored_trip_profit_missing_count using the same business scope and grouping. Keep a NULL sum when there are no contributing known amounts; do not substitute zero.'
+  invoice_billed_total:
+    business_name: Total Stored Invoice Amount
+    description: 'Sum known stored INR totals for active, non-cancelled invoices issued in the requested period, with status pending, paid, or overdue.'
+    aliases: [total invoice amount, total billed amount]
+    expression: 'SUM(tripinvoice.totalamount)'
+    required_columns: [tripinvoice.invoiceid, tripinvoice.totalamount, tripinvoice.issuedate, tripinvoice.active, tripinvoice.cancel, tripinvoice.status]
+    required_filters:
+      - column: tripinvoice.active
+        operator: '='
+        value: 1
+      - column: tripinvoice.cancel
+        operator: '='
+        value: 0
+      - column: tripinvoice.status
+        operator: IN
+        value: [pending, paid, overdue]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'R3. Filter by invoice issuedate in Asia/Kolkata. Include active, non-cancelled invoices with status pending, paid, or overdue. Sum each stored invoice total once without expanding invoice rows through item joins. Sum known amounts and always display invoice_billed_total_missing_count using the same business scope and grouping. Keep a NULL sum when there are no contributing known amounts; do not substitute zero.'
+  invoice_balance_due:
+    business_name: Total Stored Invoice Balance Due
+    description: 'Sum positive stored INR balances due for active, non-cancelled invoices with status pending, paid, or overdue; optionally group by the invoice customer.'
+    aliases: [total invoice balance due, customer balance due]
+    expression: 'SUM(tripinvoice.balancedue)'
+    required_columns: [tripinvoice.invoiceid, tripinvoice.customer, tripinvoice.balancedue, tripinvoice.active, tripinvoice.cancel, tripinvoice.status]
+    required_filters:
+      - column: tripinvoice.active
+        operator: '='
+        value: 1
+      - column: tripinvoice.cancel
+        operator: '='
+        value: 0
+      - column: tripinvoice.status
+        operator: IN
+        value: [pending, paid, overdue]
+      - column: tripinvoice.balancedue
+        operator: '>'
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'R4. Current stored-balance snapshot, not a historical as-of report. Include active, non-cancelled invoices with status pending, paid, or overdue, and sum only balancedue > 0. Group by the invoice customer using the physical customer FK when requested. Read balances directly without calculating totalamount minus amountpaid. Sum known amounts and always display invoice_balance_due_missing_count using the same business scope and grouping. Keep a NULL sum when there are no contributing known amounts; do not substitute zero. Compute the missing count before applying balancedue > 0, so unknown balances remain visible even when no positive-balance row is available.'
+  overdue_invoice_balance:
+    business_name: Stored Balance of Invoices Marked Overdue
+    description: 'Sum positive stored INR balances for active, non-cancelled invoices whose stored status is overdue.'
+    aliases: [balance of invoices marked overdue, overdue invoice balance]
+    expression: 'SUM(tripinvoice.balancedue)'
+    required_columns: [tripinvoice.invoiceid, tripinvoice.balancedue, tripinvoice.status, tripinvoice.active, tripinvoice.cancel]
+    required_filters:
+      - column: tripinvoice.active
+        operator: '='
+        value: 1
+      - column: tripinvoice.cancel
+        operator: '='
+        value: 0
+      - column: tripinvoice.status
+        operator: '='
+        value: overdue
+      - column: tripinvoice.balancedue
+        operator: '>'
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'R5. Current stored-balance snapshot. Include active, non-cancelled invoices with stored status overdue, and sum only balancedue > 0. Use the stored status; do not derive overdue status from due date or payment amounts. Sum known amounts and always display overdue_invoice_balance_missing_count using the same business scope and grouping. Keep a NULL sum when there are no contributing known amounts; do not substitute zero. Compute the missing count before applying balancedue > 0, so unknown balances remain visible even when no positive-balance row is available.'
+  stored_trip_revenue_missing_count:
+    business_name: Missing Trip Revenue Count
+    description: 'Count eligible records whose stored trip.revenue value is NULL, to accompany stored_trip_revenue.'
+    aliases: [missing trip revenue count]
+    expression: 'COUNT(*) - COUNT(trip.revenue)'
+    required_columns: [trip.revenue, trip.enddate, trip.active, trip.cancel]
+    required_filters:
+      - column: trip.active
+        operator: '='
+        value: 1
+      - column: trip.cancel
+        operator: '='
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Apply the same actual completion-date period, date grouping, active = 1, and cancel = 0 as the parent metric. Count each trip once. Use this count with the parent sum to flag incomplete totals. An empty scope has a missing count of zero; a scope of only missing amounts has a positive missing count and no known amount total.'
+  stored_trip_cost_missing_count:
+    business_name: Missing Trip Cost Count
+    description: 'Count eligible records whose stored trip.tripcost value is NULL, to accompany stored_trip_cost.'
+    aliases: [missing trip cost count]
+    expression: 'COUNT(*) - COUNT(trip.tripcost)'
+    required_columns: [trip.tripcost, trip.enddate, trip.active, trip.cancel]
+    required_filters:
+      - column: trip.active
+        operator: '='
+        value: 1
+      - column: trip.cancel
+        operator: '='
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Apply the same actual completion-date period, date grouping, active = 1, and cancel = 0 as the parent metric. Count each trip once. Use this count with the parent sum to flag incomplete totals. An empty scope has a missing count of zero; a scope of only missing amounts has a positive missing count and no known amount total.'
+  stored_trip_profit_missing_count:
+    business_name: Missing Trip Profit Count
+    description: 'Count eligible records whose stored trip.profit value is NULL, to accompany stored_trip_profit.'
+    aliases: [missing trip profit count]
+    expression: 'COUNT(*) - COUNT(trip.profit)'
+    required_columns: [trip.profit, trip.enddate, trip.active, trip.cancel]
+    required_filters:
+      - column: trip.active
+        operator: '='
+        value: 1
+      - column: trip.cancel
+        operator: '='
+        value: 0
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Apply the same actual completion-date period, date grouping, active = 1, and cancel = 0 as the parent metric. Count each trip once. Use this count with the parent sum to flag incomplete totals. An empty scope has a missing count of zero; a scope of only missing amounts has a positive missing count and no known amount total.'
+  invoice_billed_total_missing_count:
+    business_name: Missing Invoice Total Count
+    description: 'Count eligible records whose stored tripinvoice.totalamount value is NULL, to accompany invoice_billed_total.'
+    aliases: [missing invoice total count]
+    expression: 'COUNT(*) - COUNT(tripinvoice.totalamount)'
+    required_columns: [tripinvoice.invoiceid, tripinvoice.totalamount, tripinvoice.issuedate, tripinvoice.active, tripinvoice.cancel, tripinvoice.status]
+    required_filters:
+      - column: tripinvoice.active
+        operator: '='
+        value: 1
+      - column: tripinvoice.cancel
+        operator: '='
+        value: 0
+      - column: tripinvoice.status
+        operator: IN
+        value: [pending, paid, overdue]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Apply the same issuedate period and grouping as the parent metric. Include active, non-cancelled invoices with status pending, paid, or overdue. Count each invoice once. Use this count with the parent sum to flag incomplete totals. An empty scope has a missing count of zero; a scope of only missing amounts has a positive missing count and no known amount total.'
+  invoice_balance_due_missing_count:
+    business_name: Missing Invoice Balance Due Count
+    description: 'Count eligible records whose stored tripinvoice.balancedue value is NULL, to accompany invoice_balance_due.'
+    aliases: [missing invoice balance due count]
+    expression: 'COUNT(*) - COUNT(tripinvoice.balancedue)'
+    required_columns: [tripinvoice.invoiceid, tripinvoice.customer, tripinvoice.balancedue, tripinvoice.active, tripinvoice.cancel, tripinvoice.status]
+    required_filters:
+      - column: tripinvoice.active
+        operator: '='
+        value: 1
+      - column: tripinvoice.cancel
+        operator: '='
+        value: 0
+      - column: tripinvoice.status
+        operator: IN
+        value: [pending, paid, overdue]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Use the same active/cancel/status scope and grouping as the parent metric, before positive-balance filtering. Count invoices with NULL balancedue even though they cannot qualify as known positive balances. Show missing-balance information even if no positive-balance result row exists. Use this count with the parent sum to flag incomplete totals. An empty scope has a missing count of zero; a scope of only missing amounts has a positive missing count and no known amount total.'
+  overdue_invoice_balance_missing_count:
+    business_name: Missing Overdue Invoice Balance Count
+    description: 'Count eligible records whose stored tripinvoice.balancedue value is NULL, to accompany overdue_invoice_balance.'
+    aliases: [missing overdue invoice balance count]
+    expression: 'COUNT(*) - COUNT(tripinvoice.balancedue)'
+    required_columns: [tripinvoice.invoiceid, tripinvoice.balancedue, tripinvoice.status, tripinvoice.active, tripinvoice.cancel]
+    required_filters:
+      - column: tripinvoice.active
+        operator: '='
+        value: 1
+      - column: tripinvoice.cancel
+        operator: '='
+        value: 0
+      - column: tripinvoice.status
+        operator: '='
+        value: overdue
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Use the same active/cancel/status scope and grouping as the parent metric, before positive-balance filtering. Count invoices with NULL balancedue even though they cannot qualify as known positive balances. Show missing-balance information even if no positive-balance result row exists. Use this count with the parent sum to flag incomplete totals. An empty scope has a missing count of zero; a scope of only missing amounts has a positive missing count and no known amount total.'

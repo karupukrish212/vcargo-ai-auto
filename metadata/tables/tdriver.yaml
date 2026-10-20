@@ -1,0 +1,257 @@
+# Editable business metadata reviewed by the project owner.
+table_name: tdriver
+business_name: 'driver details'
+description: 'it represent the driver details'
+domain: transport
+aliases: []
+queryable: true
+verified: true
+source: manual
+reviewed_by: 'Karupu'
+reviewed_on: '2026-10-09'
+columns:
+  tdriverid:
+    business_name: 'driver id'
+    description: 'This is the unique identifier for a driver. It is a primary key of this table.'
+    aliases: [driver id, driver_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  aadharnumber:
+    business_name: 'driver aadhar number'
+    description: 'It represent the aaddhar number of the driver'
+    aliases: [driver aadhar number, driver aadhar no, driver aadhar, driver aadhar card number]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  active:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: active_flag
+    value_encoding: numeric
+  address:
+    business_name: 'driver address'
+    description: 'It represent the address of the driver'
+    aliases: [address of driver, driver address, driver_address]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  assignedvehicle:
+    business_name: 'Assigned vehicle'
+    description: 'Vehicle number assigned to the driver, matching tvehicle.vehiclenumber through a logical relationship.'
+    aliases: [assigned vehicle, assigned_vehicle, driver's_vehicle, driver_vehicle, driver driven vehicle]
+    semantic_type: vehicle_number
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developer-confirmed mapping relayed by the project owner. Stored as text, not as tvehicle.tvehicleid; no physical foreign key.'
+  bloodgroup:
+    business_name: 'Driver Blood Group'
+    description: 'It represent the blood group of the driver registered'
+    aliases: [driver blood group, driver_blood_group]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  branchcode:
+    business_name: 'Branch Code'
+    description: 'It represent the branch code of the organization where the driver is working.'
+    aliases: [branch code, branchcode]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  branchname:
+    business_name: 'Branch Name'
+    description: 'It represent the branch name of the organization where the driver is working.'
+    aliases: [branch name, branchname]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  cancel:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: cancel_flag
+    value_encoding: numeric
+  createdon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: audit_created_text
+  modifiedon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    business_name: 'created by'
+    aliases: [created by, created_by]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developers confirmed through the project owner that this is always an application-maintained foreign-key reference to users.userid. No physical foreign key. Stored as VARCHAR(255), whereas users.userid is BIGINT; future SQL validation must explicitly handle type compatibility and invalid values.'
+  currentlocation:
+    business_name: 'driver current location'
+    description: 'It represent the current location of the driver. so that we can easily track the driver and assign the trip to the driver based on the location.'
+    aliases: [driver current location, driver location, location of the driver, driver current location, driver current location address]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  email:
+    business_name: 'driver email id'
+    description: 'it represent the email id of the driver.'
+    aliases: [driver email id, driver email address, driver email]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  emergencycontact:
+    business_name: 'driver emergency contact number'
+    description: 'It represent the emergency contact number of the driver.'
+    aliases: [driver emergency contact number, driver emergency contact no, driver emergency mob no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  experience:
+    business_name: 'driver experience'
+    description: 'Driver experience measured in months.'
+    aliases: [driver experience, experience, driver experience in months]
+    semantic_type: driver_experience_months
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner confirmed months as the unit. The physical column is VARCHAR(50); this unit definition does not establish numeric storage or conversion rules.'
+  joineddate:
+    business_name: 'driver joined date'
+    description: 'It represent the date when the driver joined the organization.'
+    aliases: [driver join date, driver start date, driver joined date, driver start working date]
+    semantic_type: driver_join_date
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Confirmed native MySQL DATE, displayed as YYYY-MM-DD (for example, 2026-09-21). Calendar date without a time component; text parsing is unnecessary.'
+  lasttrip:
+    business_name: 'driver last trip '
+    description: 'It represent the last trip completed by the driver registered in the transport module.'
+    aliases: [driver last trip, driver last completed trip date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  licenseexpiry:
+    business_name: 'driver license number expiry date'
+    description: 'It represent the license expiry date of the driver registered in the transport module.'
+    aliases: [licence expiry date, license expiry date, driver license expiry date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  licensenumber:
+    business_name: 'driver license number'
+    description: 'It represent the license number of the driver registered in the transport module.'
+    aliases: [driver license number, license number, licence no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  name:
+    business_name: Driver Name
+    description: Name of the driver registered in the transport module.
+    aliases: [driver name]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  orgid:
+    profile: organisation_reference
+    business_name: 'organization id'
+    aliases: [Organization ID]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developer-confirmed target is the primary key users.userid. orgid is not itself a primary key or a physical foreign key. This mapping alone does not define tenant access rules.'
+  performance:
+    business_name: 'performance'
+    description: 'Text describing the performance of the driver.'
+    aliases: [driver perfomance, performance]
+    semantic_type: driver_performance_text
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner confirmed performance is text. Stored as VARCHAR(20); no numeric rating scale or closed set of allowed labels is defined.'
+  phone:
+    business_name: 'driver phone no'
+    description: 'It represent the driver phone no or mobile no '
+    aliases: [phone no, mob no, driver phone no, driver mob no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  salary:
+    business_name: 'salary'
+    description: 'It represent the monthly salary'
+    aliases: [salary, driver salary]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+  status:
+    business_name: Driver Status
+    description: 'Driver status stored as ACTIVE or INACTIVE.'
+    aliases: [driver status]
+    semantic_type: driver_status
+    values:
+      'ACTIVE': Active driver
+      'INACTIVE': Inactive driver
+    value_encoding: text
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Stored values confirmed by the project owner. The relationship between this text status and the separate active flag has not been confirmed.'
+  modifiedby:
+    profile: modified_by_user
+    business_name: 'modified by'
+    aliases: [modified by, modified_by]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developers confirmed through the project owner that this is always an application-maintained foreign-key reference to users.userid. No physical foreign key. Stored as VARCHAR(255), whereas users.userid is BIGINT; future SQL validation must explicitly handle type compatibility and invalid values.'
+  userid:
+    business_name: 'user id'
+    description: 'User ID of the user who created this driver record, referencing users.userid through a physical foreign key.'
+    aliases: [user id, user_id]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner explicitly confirmed that this identifies the user who created the driver and is also a foreign key. The raw schema confirms BIGINT and a declared foreign key to the primary key users.userid. This creator role is confirmed for tdriver only, not inferred for userid in other tables.'

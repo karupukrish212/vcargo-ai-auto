@@ -1,0 +1,11 @@
+-- Review-only template for the local vcargo database.
+-- Requires an administrator; the SQL agent never executes this template.
+-- Replace <generated_reader_password> with a strong generated password before use.
+-- CREATE USER intentionally fails if the account already exists.
+-- No ERP tables or data are modified.
+
+CREATE USER 'vcargo_sql_reader'@'localhost'
+  IDENTIFIED BY '<generated_reader_password>';
+
+GRANT SELECT, SHOW VIEW ON `vcargo`.*
+  TO 'vcargo_sql_reader'@'localhost';

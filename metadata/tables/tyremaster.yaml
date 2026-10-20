@@ -1,0 +1,144 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: tyremaster
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  tyreid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  active:
+    verified: false
+    source: schema_generated
+    profile: active_flag
+    value_encoding: numeric
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+  branchname:
+    profile: branch_name
+    verified: false
+    source: schema_generated
+  brand:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  cancel:
+    verified: false
+    source: schema_generated
+    profile: cancel_flag
+    value_encoding: numeric
+  createdon:
+    verified: false
+    source: schema_generated
+    profile: audit_created_text
+  modifiedon:
+    verified: false
+    source: schema_generated
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: false
+    source: schema_generated
+  model:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  notes:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  odometerreading:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  orgid:
+    profile: organisation_reference
+    verified: false
+    source: schema_generated
+  position:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  pressure:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  purchasecost:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  purchasedate:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  recommendedpressure:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  serialnumber:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  size:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  status:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  treaddepth:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  modifiedby:
+    profile: modified_by_user
+    verified: false
+    source: schema_generated
+  userid:
+    profile: related_user
+    verified: false
+    source: schema_generated
+  vehicle:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

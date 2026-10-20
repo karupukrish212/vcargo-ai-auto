@@ -1,0 +1,235 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: maintenance
+business_name: 'Maintenance Details'
+description: 'Contains information about the Maintenance or Service details of vehicles'
+domain: Maintenance
+aliases: []
+queryable: true
+verified: true
+source: manual
+reviewed_by: karupu
+reviewed_on: 2026-10-13
+columns:
+  maintenanceid:
+    business_name: 'Maintenance Id'
+    description: 'It represent the Unique identifier for each maintenance and it serves as the primary key for this table.'
+    aliases: [maintenance id, maintenance_id, maintenance record id, maintence_id, maintence id]
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  active:
+    verified: true
+    source: user_provided
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+    profile: active_flag
+    value_encoding: numeric
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+  branchname:
+    profile: branch_name
+    verified: false
+    source: schema_generated
+  cancel:
+    verified: true
+    source: user_provided
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+    profile: cancel_flag
+    value_encoding: numeric
+  createdon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+    profile: audit_created_text
+  modifiedon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+    profile: audit_modified_text
+  completeddate:
+    business_name: 'Maintenance completed date'
+    description: 'Date when this vehicle maintenance or service was completed.'
+    aliases: [maintenance completed date, maintenance_competed_date, service_completed_date, service completed date, service_finished_date, service finished date ]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  createdby:
+    profile: created_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  description:
+    business_name: 'description of the maintenance '
+    description: 'It represent the description of the maintenance'
+    aliases: [maintenance_description, maintenance description, maintenance desc, maintenance_desc]
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  estimatedcost:
+    business_name: 'Maintenance estimated cost'
+    description: 'Stored estimated cost or budget for this maintenance record, in INR.'
+    aliases: [estimated cost, estimated_cost, estimatedcost, budget amount, budget_amount, budget_amt, budget amt, budget_cost, budget_price, budget price]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-20'
+    notes: 'The project owner confirmed INR as the currency. Read the stored estimate directly; no replacement calculation is approved.'
+  mechanic:
+    business_name: 'name of the mechanic'
+    description: 'It represent the name of the machanic who are repair the vehicle'
+    aliases: [mechanic_name, mechanic name, mechanic, service mechanic name, service_mechanic_name]
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  notes:
+    business_name: 'Notes'
+    description: 'It represent the writing the notes or hints for what is going on this particular service or maintenance'
+    aliases: [notes]
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  odometerreading:
+    business_name: 'Odometer Reading'
+    description: 'Vehicle odometer reading in kilometres (km), recorded before the vehicle came for maintenance or service.'
+    aliases: [odometer_reading, odometer reading, odometer]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-20'
+    notes: 'The project owner confirmed kilometres as the measurement unit. Preserve the stored decimal reading; no unit conversion or rounding is required.'
+  orgid:
+    profile: organisation_reference
+    verified: true
+    source: user_provided
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  priority:
+    business_name: 'Service or Maintenance Priority'
+    description: 'Priority of the vehicle maintenance or service, stored as Low, medium, high, or urgent.'
+    aliases: [service_priority, service priority, maintenance_priority, maintenance priority]
+    value_encoding: text
+    values:
+      'Low': 'Low priority'
+      'medium': 'Medium priority'
+      'high': 'High priority'
+      'urgent': 'Urgent priority'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-20'
+    notes: 'The project owner confirmed the exact stored spelling and case, including the capital L in Low.'
+  scheduleddate:
+    business_name: 'Vehicle Service Arrival Date'
+    description: 'Date when the vehicle arrived for maintenance or service, as described by the project owner. The application stores this date in scheduleddate.'
+    aliases: [scheduleddate, scheduled_date, vehicle service arrival date, service arrival date, maintenance arrival date]
+    date:
+      storage: native
+      timezone: Asia/Kolkata
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The current owner definition describes the vehicle arrival date. A planned appointment date or actual repair-start time has not been separately defined.'
+  servicecenter:
+    business_name: 'service center name'
+    description: 'It represent the name of the service center which is that particular vehicle is maintenanced or service'
+    aliases: [servicecentername, service_center_name, service center, service_center]
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  status:
+    business_name: 'Maintenance status'
+    description: 'Status of the vehicle maintenance or service, using the confirmed uppercase codes.'
+    aliases: [status, maintenance status, maintenance_status, service_status, service status]
+    value_encoding: text
+    values:
+      'COMPLETED': 'Completed maintenance'
+      'PENDING': 'Pending maintenance'
+      'SCHEDULED': 'Scheduled maintenance'
+      'INPROGRESS': 'Maintenance in progress'
+      'CANCELLED': 'Cancelled maintenance'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-20'
+    notes: 'Use the exact stored codes, including INPROGRESS without a space. No automatic equivalence with the separate active or cancel flags is defined.'
+  title:
+    business_name: 'Title of the issue'
+    description: 'It represent reason for vehicle came to service or maintenance'
+    aliases: [repair reason, repair_reason, maintenance_reason, maintenance reason, service reason, service_reason, maintenance_title]
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  totalcost:
+    business_name: 'maintenance total cost'
+    description: 'Stored total cost of this vehicle maintenance record, in INR.'
+    aliases: [total amount, total_amount, tot_amount, tot_amt, total service price, total_service_price, total_ser_price, total maintenance fee, total_maintenance_fee]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-20'
+    notes: 'The project owner confirmed INR as the currency. Read totalcost directly without recalculating it from maintenance parts or estimatedcost.'
+  totalqty:
+    business_name: 'total quantity'
+    description: 'It is represent the total quantity of the parts changed for this maintenance'
+    aliases: [total_qty, total quantity, tot_qty, tot qty]
+    verified: true
+    source: manual
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The owner identifies this as the total quantity of parts changed for the maintenance. The schema stores DECIMAL(19,2); do not assume whole-number rounding or a particular measurement unit. No formula for aggregating maintenanceparts quantities is approved.'
+  type:
+    business_name: 'Maintenance Type'
+    description: 'Maintenance category stored as preventive, corrective, emergency, or routine.'
+    aliases: [type, maintenance type, maintenance_type, service_type, service type]
+    value_encoding: text
+    values:
+      'preventive': 'Preventive maintenance'
+      'corrective': 'Corrective maintenance'
+      'emergency': 'Emergency maintenance'
+      'routine': 'Routine maintenance'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-20'
+    notes: 'The project owner confirmed these four lowercase stored maintenance type codes.'
+  modifiedby:
+    profile: modified_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'karupu'
+    reviewed_on: '2026-10-13'
+  userid:
+    business_name: 'Maintenance Creator User ID'
+    description: 'User ID of the user who created this maintenance row, referencing users.userid through a physical foreign key.'
+    aliases: [maintenance creator user id, maintenance created by user id, maintenance user id]
+    semantic_type: maintenance_record_created_by
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'The project owner explicitly confirmed that this identifies the user who created the maintenance table row. The raw schema confirms a BIGINT foreign key to the primary key users.userid. This creator role is confirmed for maintenance only; it does not approve a shared userid role for other tables.'
+  vehicle:
+    business_name: 'Vehicle ID assigned to the maintenance'
+    description: 'Vehicle ID associated with this maintenance record, referencing tvehicle.tvehicleid through a physical foreign key.'
+    aliases: [maintenance vehicle id, maintenance_vehicle_id, service vehicle id, service_vehicle_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'

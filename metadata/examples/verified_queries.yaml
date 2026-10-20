@@ -1,0 +1,474 @@
+# Developer/domain-expert approved report queries only. Drafts must remain verified: false.
+queries:
+  - id: maintenance_cost_by_vehicle
+    question: 'What was the stored maintenance cost and number of completed maintenance records for each vehicle last month, September 2026, using 20 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        v.tvehicleid AS vehicle_id,
+        v.vehiclenumber,
+        COUNT(m.maintenanceid) AS maintenance_count,
+        SUM(m.totalcost) AS total_maintenance_cost,
+        COUNT(m.maintenanceid) - COUNT(m.totalcost) AS missing_cost_count
+      FROM maintenance AS m
+      INNER JOIN tvehicle AS v ON m.vehicle = v.tvehicleid
+      WHERE m.active = 1
+        AND m.cancel = 0
+        AND m.status = 'COMPLETED'
+        AND m.completeddate >= '2026-09-01'
+        AND m.completeddate < '2026-10-01'
+      GROUP BY v.tvehicleid, v.vehiclenumber
+      ORDER BY maintenance_count DESC, v.tvehicleid ASC;
+    related_tables: [maintenance, tvehicle]
+    tags: [maintenance, vehicle_grouping, stored_maintenance_cost, completion_date, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: null
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner maintenance query. The saved schema confirms
+      maintenanceid as the primary key, completeddate as DATE, totalcost as DECIMAL,
+      active/cancel as BIT, and maintenance.vehicle as a physical foreign key to
+      tvehicle.tvehicleid. Reference date is 2026-10-20 in Asia/Kolkata; the fixed
+      period is September 2026. Resolve bounds again for another request date.
+      Apply the active, non-cancelled record convention to maintenance rows in this
+      draft; add no vehicle flag filters. The owner confirmed the exact maintenance
+      status code COMPLETED and INR as the currency for totalcost. The owner has
+      also reviewed completeddate as the service completion date and totalcost as
+      the stored total for the maintenance record. These definitions are recorded
+      in metadata/tables/maintenance.yaml. Count maintenance records, sum known
+      stored INR totalcost values directly, and
+      report missing costs separately. Do not recompute costs from maintenanceparts.
+      Keep NULL sums when no known costs contribute. The supplied INNER JOIN
+      excludes records without a matching vehicle. Group by vehicle ID and number,
+      retain count-descending ordering, and use vehicle ID to break ties. The
+      maintenance definitions used by this query are reviewed; SQL execution and
+      expected-result checks remain pending. This entry remains unverified and
+      unavailable to approved-query retrieval.
+  - id: driver_licences_expiring
+    question: 'Which active, non-cancelled drivers have licences expiring from today through 30 days from today, inclusive, using the current India date?'
+    sql: |
+      SELECT
+        d.tdriverid,
+        d.name,
+        d.licensenumber,
+        d.licenseexpiry,
+        d.phone
+      FROM tdriver AS d
+      WHERE d.active = 1
+        AND d.cancel = 0
+        AND d.licenseexpiry >= DATE(UTC_TIMESTAMP() + INTERVAL 330 MINUTE)
+        AND d.licenseexpiry <= DATE_ADD(
+          DATE(UTC_TIMESTAMP() + INTERVAL 330 MINUTE), INTERVAL 30 DAY
+        )
+      ORDER BY d.licenseexpiry ASC, d.tdriverid ASC;
+    related_tables: [tdriver]
+    tags: [driver_licence_expiry, next_30_days, includes_today, india_timezone, dynamic_date]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner licence-expiry query. The supplied BETWEEN
+      condition is valid for an inclusive date range. Preserve that meaning:
+      include licences expiring today and on the date 30 days from today. This
+      covers calendar dates with offsets 0 through 30, not exactly 30 distinct
+      dates. For an India report date of 2026-10-20 the bounds are 2026-10-20 through
+      2026-11-19 inclusive; the query computes fresh bounds whenever it runs.
+      Derive the India calendar date from UTC plus the confirmed 330-minute offset
+      so the database session timezone does not change the selected dates.
+      licenseexpiry is a native DATE, so text parsing is unnecessary. Apply the
+      active, non-cancelled record convention to driver rows for this alert example;
+      do not infer equivalence with the separate driver.status text field.
+      NULL expiry dates do not match the window. Order by expiry then driver ID
+      for stable results. No expected driver rows are established; SQL execution
+      and expected-result checks remain pending.
+  - id: freight_trip_details
+    question: 'Show freight trips completed last month, September 2026, including goods type and weight in kilograms, using 20 October 2026 as the reference date.'
+    sql: |
+      SELECT
+        t.tripid,
+        t.source,
+        t.destination,
+        t.goodstype,
+        t.goodsweight AS weight_kg,
+        CASE WHEN t.goodsweight IS NULL THEN 1 ELSE 0 END AS weight_missing_count
+      FROM trip AS t
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.triptype = 'freight'
+        AND t.enddate >= '2026-09-01'
+        AND t.enddate < '2026-10-01'
+      ORDER BY weight_kg DESC, t.tripid ASC;
+    related_tables: [trip]
+    tags: [freight, trip_details, goods_weight, actual_completion, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner freight-trip detail query. Reference date
+      is 2026-10-20 in Asia/Kolkata, making last month September 2026. Resolve new
+      calendar bounds for another request date. Include active, non-cancelled
+      trips with the confirmed triptype value freight, using actual completion
+      date enddate rather than scheduled departure. COMPLETED is not among the
+      approved trip.status codes. Return one row per trip with stored goodstype
+      and goodsweight in kilograms; no aggregation, unit conversion, or rounding
+      is applied. Preserve NULL weights and indicate each with weight_missing_count
+      = 1; known weights have a missing count of 0. Order by weight descending
+      and trip ID ascending for ties. No expected rows are established; SQL
+      execution and expected-result checks remain pending.
+  - id: trip_cost_by_vehicle
+    question: 'What was the total stored trip cost for each vehicle last month, September 2026, using 20 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        v.tvehicleid AS vehicle_id,
+        v.vehiclenumber,
+        SUM(t.tripcost) AS stored_trip_cost,
+        COUNT(t.tripid) - COUNT(t.tripcost) AS stored_trip_cost_missing_count
+      FROM trip AS t
+      INNER JOIN tvehicle AS v ON t.vehicle = v.tvehicleid
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.enddate >= '2026-09-01'
+        AND t.enddate < '2026-10-01'
+      GROUP BY v.tvehicleid, v.vehiclenumber
+      ORDER BY stored_trip_cost DESC, v.tvehicleid ASC;
+    related_tables: [trip, tvehicle]
+    tags: [R2, stored_trip_cost, vehicle_grouping, actual_completion, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner vehicle-wise trip-cost query. Reference
+      date is 2026-10-20 in Asia/Kolkata, so this fixed example covers September
+      2026. Resolve new calendar bounds for another last-month request date.
+      Include active, non-cancelled trips using actual completion date enddate.
+      COMPLETED is not among the confirmed trip.status codes. Sum known stored
+      INR tripcost values directly without reconstructing cost from expenses,
+      and display the missing-tripcost count for the same trips in each group.
+      Keep the supplied INNER JOIN through the vehicle primary key, excluding
+      trips without a matching vehicle; add no vehicle active/cancel filters.
+      Group by vehicle ID and number, order totals descending, and break ties
+      by vehicle ID ascending. No top-N limit or zero-trip vehicle rows are added.
+      A group with only NULL costs retains a NULL total and a positive missing
+      count; do not substitute zero. SQL execution and expected-result checks
+      remain pending, so this corrected example is unverified.
+  - id: trip_profit_by_vehicle
+    question: 'Which vehicles generated the highest stored profit last month, September 2026, using 20 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        v.tvehicleid AS vehicle_id,
+        v.vehiclenumber,
+        SUM(t.profit) AS stored_trip_profit,
+        COUNT(t.tripid) - COUNT(t.profit) AS stored_trip_profit_missing_count
+      FROM trip AS t
+      INNER JOIN tvehicle AS v ON t.vehicle = v.tvehicleid
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.enddate >= '2026-09-01'
+        AND t.enddate < '2026-10-01'
+      GROUP BY v.tvehicleid, v.vehiclenumber
+      ORDER BY stored_trip_profit DESC, v.tvehicleid ASC;
+    related_tables: [trip, tvehicle]
+    tags: [R2, stored_trip_profit, vehicle_ranking, actual_completion, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner vehicle-profit query. Reference date is
+      2026-10-20 in Asia/Kolkata, so last month is September 2026. Resolve bounds
+      again for a different request date. Include active, non-cancelled trips
+      by actual completion date enddate. Sum stored INR profit directly without
+      recalculating it from revenue or costs, and display the missing-profit count
+      for the same selected trips in each vehicle group. Include stored negative
+      profits; the positive-only rule applies to outstanding balances, not profit.
+      Keep the supplied INNER JOIN through the vehicle primary key, excluding
+      trips without a matching vehicle; add no vehicle active/cancel filters.
+      Group by vehicle ID and number, rank known totals descending, and use vehicle
+      ID ascending to break ties. No top-N limit was requested. Vehicles with only
+      NULL profits retain a NULL total and a positive missing count; do not
+      substitute zero or present an incomplete total as fully known. SQL execution
+      and expected-result checks remain pending.
+  - id: freight_weight_by_route
+    question: 'What total goods weight in kilograms was transported on freight trips from Madurai to Chennai last month, September 2026, and how many trips were there, using 20 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        COUNT(t.tripid) AS total_trips,
+        SUM(t.goodsweight) AS total_weight_kg,
+        COUNT(t.tripid) - COUNT(t.goodsweight) AS missing_weight_count
+      FROM trip AS t
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.triptype = 'freight'
+        AND t.enddate >= '2026-09-01'
+        AND t.enddate < '2026-10-01'
+        AND LOWER(t.source) LIKE '%madurai%'
+        AND LOWER(t.destination) LIKE '%chennai%';
+    related_tables: [trip]
+    tags: [freight, goods_weight, route_filter, trip_count, actual_completion, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner freight-weight query. Use September 2026
+      from the supplied SQL dates to interpret the ambiguous phrase lastlast month.
+      Reference date is 2026-10-20 in Asia/Kolkata; resolve calendar bounds again
+      for another request date or a different intended period. Include only active,
+      non-cancelled freight trips completed in the period, using enddate.
+      Preserve case-insensitive substring matches for source Madurai and destination
+      Chennai. Return one overall route total without grouping by individual weights
+      or stored location variants. goodsweight is already stored in kilograms;
+      sum its known values directly without rounding or converting units. Count all
+      selected freight trips and separately count trips with NULL goodsweight.
+      Preserve a NULL weight sum if no known weights contribute. No numeric expected
+      result is established; SQL execution and expected-result checks are pending.
+  - id: top_five_drivers
+    question: 'Which five drivers completed the most trips last month, September 2026, using 20 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        d.tdriverid AS driver_id,
+        d.name AS driver_name,
+        COUNT(t.tripid) AS completed_trip_count
+      FROM trip AS t
+      INNER JOIN tdriver AS d ON t.driver = d.tdriverid
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.enddate >= '2026-09-01'
+        AND t.enddate < '2026-10-01'
+      GROUP BY d.tdriverid, d.name
+      ORDER BY completed_trip_count DESC, d.tdriverid ASC
+      LIMIT 5;
+    related_tables: [trip, tdriver]
+    tags: [R1, completed_trip_count, driver_ranking, top_five, actual_completion, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner driver-ranking example. Reference date is
+      2026-10-20 in Asia/Kolkata, making last month September 2026. These fixed
+      bounds cover the entire month; resolve new bounds for another request date.
+      Count active, non-cancelled trips by actual completion date enddate, not
+      scheduled departure. COMPLETED is not among the confirmed trip.status codes.
+      Join the driver through the tdriverid primary key and group by both ID and
+      name so different drivers with the same name remain separate. Keep the
+      supplied INNER JOIN, excluding trips without a matching driver. No driver
+      active/cancel filters are added. Return up to five drivers with qualifying
+      trips; use driver_id ascending to resolve equal counts deterministically.
+      No monetary amount is selected, so no missing-amount count is needed.
+      No expected driver IDs or trip counts are established. SQL execution and
+      expected-result checks remain pending.
+  - id: customer_name_trip_details
+    question: 'Show trip details for customers whose names contain Nandhakumar for the last 12 complete calendar months, 1 October 2025 through 30 September 2026, using 15 October 2026 as the reference date.'
+    sql: |
+      SELECT
+        c.customerid AS customer_id,
+        c.customername,
+        t.tripid,
+        v.vehiclenumber,
+        t.source,
+        t.destination,
+        t.tripstarttime,
+        t.tripendtime,
+        t.revenue AS trip_revenue,
+        CASE WHEN t.revenue IS NULL THEN 1 ELSE 0 END AS revenue_missing_count
+      FROM trip AS t
+      INNER JOIN tvehicle AS v ON t.vehicle = v.tvehicleid
+      INNER JOIN customer AS c ON t.customer = c.customerid
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.enddate >= '2025-10-01'
+        AND t.enddate < '2026-10-01'
+        AND LOWER(c.customername) LIKE '%nandhakumar%'
+      ORDER BY c.customername, c.customerid, t.revenue DESC, t.tripid;
+    related_tables: [trip, tvehicle, customer]
+    tags: [trip_details, customer_name_filter, customer_ordering, actual_completion, missing_values, last_12_complete_months, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner query for a customer-name search. Preserve
+      the supplied case-insensitive substring match for nandhakumar; multiple
+      customer records may match. Return customer_id to keep their identities
+      distinct and join through primary keys rather than names. Interpret last
+      one year as the last 12 complete calendar months ending at the supplied
+      exclusive cutoff of 2026-10-01. Use 2025-10-01 as the lower bound; the
+      original 2025-09-01 covered 13 months. Reference date is 2026-10-15 in
+      Asia/Kolkata. Resolve bounds again for other request dates or period meanings.
+      Apply active = 1 and cancel = 0 to trip, with actual completion date enddate
+      as the reporting date. COMPLETED is not among the approved trip.status codes.
+      Keep the supplied INNER JOINs, including only trips with matching customer
+      and vehicle records; add no customer or vehicle active/cancel filters.
+      Return one row per trip and read stored INR revenue directly, without SUM
+      or GROUP BY. Show 1 in revenue_missing_count for a NULL revenue, otherwise 0.
+      Displayed tripstarttime is the stored scheduled start and tripendtime is
+      actual completion. Order by customer, then revenue descending, with tripid
+      as a stable tie-breaker. SQL execution and expected-result checks are pending.
+  - id: customer_trip_details
+    question: 'Show customer-wise trip details for the last 12 complete calendar months, 1 October 2025 through 30 September 2026, using 15 October 2026 as the reference date.'
+    sql: |
+      SELECT
+        c.customerid AS customer_id,
+        c.customername,
+        t.tripid,
+        v.vehiclenumber,
+        t.source,
+        t.destination,
+        t.tripstarttime,
+        t.tripendtime,
+        t.revenue AS trip_revenue,
+        CASE WHEN t.revenue IS NULL THEN 1 ELSE 0 END AS revenue_missing_count
+      FROM trip AS t
+      INNER JOIN tvehicle AS v ON t.vehicle = v.tvehicleid
+      INNER JOIN customer AS c ON t.customer = c.customerid
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.enddate >= '2025-10-01'
+        AND t.enddate < '2026-10-01'
+      ORDER BY c.customername, c.customerid, t.revenue DESC, t.tripid;
+    related_tables: [trip, tvehicle, customer]
+    tags: [trip_details, customer_ordering, actual_completion, missing_values, last_12_complete_months, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner customer-wise details query. Interpret
+      last one year as the last 12 complete calendar months, retaining the supplied
+      exclusive cutoff of 2026-10-01. The matching lower bound is 2025-10-01;
+      the original 2025-09-01 lower bound covered 13 months. Reference date is
+      2026-10-15 in Asia/Kolkata. This fixed-period example is not a rolling
+      12-month window or the previous calendar year; resolve bounds again for
+      a different request date or an explicitly different period definition.
+      Use active = 1, cancel = 0, and actual completion date enddate for filtering.
+      COMPLETED is not an approved trip.status code. Return one row per matched
+      trip and read stored INR revenue directly; SUM and GROUP BY are unnecessary
+      for this detail report. The displayed tripstarttime is the stored scheduled
+      start timestamp, and tripendtime is the stored actual completion timestamp.
+      Keep the supplied INNER JOINs, which exclude trips without a matching
+      customer or vehicle. Both joins use target primary keys. Apply record flags
+      only to trip, without adding customer or vehicle flag filters.
+      Include customer_id to distinguish customers sharing a name, order trips
+      by customer and then revenue descending, and show a per-row missing count
+      of 1 when revenue is NULL. No expected result is established; SQL execution
+      and expected-result checks remain pending.
+  - id: trip_revenue_by_route
+    question: 'What is the total trip revenue from Madurai to Natham for last month, September 2026, using 15 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        SUM(t.revenue) AS stored_trip_revenue,
+        COUNT(*) - COUNT(t.revenue) AS stored_trip_revenue_missing_count
+      FROM trip AS t
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.enddate >= '2026-09-01'
+        AND t.enddate < '2026-10-01'
+        AND LOWER(t.source) LIKE '%madurai%'
+        AND LOWER(t.destination) LIKE '%natham%';
+    related_tables: [trip]
+    tags: [R2, trip_revenue, route_filter, actual_completion, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner route example. The requested direction is
+      Madurai as source and Natham as destination. Preserve the supplied approach
+      of matching location text by case-insensitive substring. Reference date is
+      2026-10-15 in Asia/Kolkata, so this fixed example covers September 2026;
+      resolve new calendar bounds for a different last-month request date.
+      Filter by active = 1, cancel = 0, and actual completion date enddate.
+      COMPLETED is not among the confirmed trip.status codes. Return one overall
+      route total as requested, without a vehicle join or per-vehicle grouping;
+      qualifying trips are included even when their vehicle reference is NULL.
+      Sum known stored INR revenue and count eligible missing revenues separately.
+      No numeric expected result is established. SQL execution and expected-result
+      checks remain pending, so this corrected example remains unverified.
+  - id: trip_revenue_by_vehicle
+    question: 'What is the total trip revenue by vehicle for last month, September 2026, using 14 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        t.vehicle AS vehicle_id,
+        v.vehiclenumber,
+        COUNT(t.tripid) AS trip_count,
+        SUM(t.revenue) AS stored_trip_revenue,
+        COUNT(t.tripid) - COUNT(t.revenue) AS stored_trip_revenue_missing_count
+      FROM trip AS t
+      INNER JOIN tvehicle AS v ON t.vehicle = v.tvehicleid
+      WHERE t.active = 1
+        AND t.cancel = 0
+        AND t.enddate >= '2026-09-01'
+        AND t.enddate < '2026-10-01'
+      GROUP BY t.vehicle, v.vehiclenumber
+      ORDER BY t.vehicle;
+    related_tables: [trip, tvehicle]
+    tags: [R2, trip_revenue, vehicle_grouping, trip_count, actual_completion, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner vehicle-wise example. Reference date is
+      2026-10-14 in Asia/Kolkata, so this fixed example covers September 2026.
+      Resolve new calendar bounds for a different last-month request date.
+      Filter trips by active = 1, cancel = 0, and actual completion date enddate.
+      The approved trip.status values are ACTIVE and INACTIVE; do not filter by
+      COMPLETED. Preserve the supplied INNER JOIN: trips with NULL vehicle or
+      without a matching vehicle row are excluded, so grouped totals can differ
+      from the all-trip revenue example. Join through the tvehicleid primary key
+      to avoid multiplying trip rows; no active/cancel filter is added to tvehicle.
+      Count all matched trips in each vehicle group, sum known stored INR revenue,
+      and report missing revenue separately. A group with only NULL revenues has
+      a NULL revenue sum and a positive missing count. No numeric expected result
+      has been established; SQL execution and expected-result checks are pending.
+  - id: trip_revenue_total
+    question: 'What is the total trip revenue for last month, September 2026, using 14 October 2026 as the reference date?'
+    sql: |
+      SELECT
+        SUM(trip.revenue) AS stored_trip_revenue,
+        COUNT(*) - COUNT(trip.revenue) AS stored_trip_revenue_missing_count
+      FROM trip
+      WHERE trip.active = 1
+        AND trip.cancel = 0
+        AND trip.enddate >= '2026-09-01'
+        AND trip.enddate < '2026-10-01';
+    related_tables: [trip]
+    tags: [R2, trip_revenue, actual_completion, missing_values, last_month, fixed_period_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: >-
+      Corrected from the project owner example using the approved stored_trip_revenue
+      and stored_trip_revenue_missing_count definitions. Reference date is 2026-10-14
+      in Asia/Kolkata, making last month September 2026. These fixed bounds are an
+      example; resolve the previous calendar month again for a different request date.
+      Use actual completion date enddate regardless of when the trip started.
+      The confirmed trip.status codes are ACTIVE and INACTIVE; COMPLETED is not an
+      approved code. Sum known stored INR revenue and count eligible NULL revenues.
+      No expected numeric result is established for this trip query; the INR 3000
+      invoice example below is unrelated. SQL execution and expected-result checks
+      remain pending, so this corrected SQL remains a draft.
+  - id: invoice_billed_total
+    question: 'What is the total invoice amount issued in October 2026, including a count of missing amounts?'
+    sql: |
+      SELECT
+        SUM(tripinvoice.totalamount) AS invoice_billed_total,
+        COUNT(*) - COUNT(tripinvoice.totalamount) AS invoice_billed_total_missing_count
+      FROM tripinvoice
+      WHERE tripinvoice.active = 1
+        AND tripinvoice.cancel = 0
+        AND tripinvoice.status IN ('pending', 'paid', 'overdue')
+        AND tripinvoice.issuedate >= '2026-10-01'
+        AND tripinvoice.issuedate < '2026-11-01';
+    related_tables: [tripinvoice]
+    tags: [R3, invoice_total, missing_values, synthetic_example]
+    verified: false
+    source: llm_generated
+    reviewed_by: 'Karupu'
+    reviewed_on: null
+    notes: 'Worked format example using synthetic rows documented in metadata/REPORT_REVIEW.md. Expected output for those rows is invoice_billed_total = 3000.00 INR and invoice_billed_total_missing_count = 1. These are hand-derived expectations, not observed database results. SQL execution and expected-result testing remain pending.'

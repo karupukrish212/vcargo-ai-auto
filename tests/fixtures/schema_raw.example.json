@@ -1,0 +1,302 @@
+{
+  "capabilities": {
+    "check_constraints": true,
+    "constraint_enforcement": true,
+    "index_expressions": true,
+    "index_visibility": true
+  },
+  "default_character_set": "utf8mb4",
+  "default_collation": "utf8mb4_0900_ai_ci",
+  "format_version": 1,
+  "schema_name": "fixture",
+  "server_version": "8.0.fixture",
+  "source": "mysql_information_schema",
+  "tables": [
+    {
+      "collation": "utf8mb4_0900_ai_ci",
+      "columns": [
+        {
+          "character_maximum_length": null,
+          "character_set": null,
+          "collation": null,
+          "column_type": "int unsigned",
+          "comment": "",
+          "data_type": "int",
+          "datetime_precision": null,
+          "default": null,
+          "extra": "",
+          "generation_expression": "",
+          "name": "record_id",
+          "nullable": false,
+          "numeric_precision": 10,
+          "numeric_scale": 0,
+          "ordinal_position": 1
+        },
+        {
+          "character_maximum_length": null,
+          "character_set": null,
+          "collation": null,
+          "column_type": "int unsigned",
+          "comment": "",
+          "data_type": "int",
+          "datetime_precision": null,
+          "default": null,
+          "extra": "",
+          "generation_expression": "",
+          "name": "revision",
+          "nullable": false,
+          "numeric_precision": 10,
+          "numeric_scale": 0,
+          "ordinal_position": 2
+        },
+        {
+          "character_maximum_length": 80,
+          "character_set": "utf8mb4",
+          "collation": "utf8mb4_0900_ai_ci",
+          "column_type": "varchar(80)",
+          "comment": "Unicode label: नमूना",
+          "data_type": "varchar",
+          "datetime_precision": null,
+          "default": "",
+          "extra": "",
+          "generation_expression": "",
+          "name": "label",
+          "nullable": true,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "ordinal_position": 3
+        }
+      ],
+      "comment": "Synthetic unit-test fixture",
+      "constraints": [
+        {
+          "check_clause": null,
+          "columns": [
+            "record_id",
+            "revision"
+          ],
+          "constraint_type": "PRIMARY KEY",
+          "enforced": true,
+          "name": "PRIMARY"
+        },
+        {
+          "check_clause": "(`revision` > 0)",
+          "columns": [],
+          "constraint_type": "CHECK",
+          "enforced": true,
+          "name": "chk_revision"
+        },
+        {
+          "check_clause": null,
+          "columns": [
+            "record_id",
+            "revision"
+          ],
+          "constraint_type": "FOREIGN KEY",
+          "enforced": true,
+          "name": "fk_parent"
+        }
+      ],
+      "engine": "InnoDB",
+      "foreign_keys": [
+        {
+          "columns": [
+            "record_id",
+            "revision"
+          ],
+          "delete_rule": "RESTRICT",
+          "match_option": "NONE",
+          "name": "fk_parent",
+          "referenced_columns": [
+            "record_id",
+            "revision"
+          ],
+          "referenced_schema": "fixture",
+          "referenced_table": "parent_records",
+          "referenced_unique_constraint": "PRIMARY",
+          "referenced_unique_positions": [
+            1,
+            2
+          ],
+          "update_rule": "RESTRICT"
+        }
+      ],
+      "indexes": [
+        {
+          "comment": "",
+          "index_comment": "",
+          "index_type": "BTREE",
+          "name": "PRIMARY",
+          "parts": [
+            {
+              "collation": "A",
+              "column": "record_id",
+              "expression": null,
+              "ordinal_position": 1,
+              "prefix_length": null
+            },
+            {
+              "collation": "A",
+              "column": "revision",
+              "expression": null,
+              "ordinal_position": 2,
+              "prefix_length": null
+            }
+          ],
+          "unique": true,
+          "visible": true
+        }
+      ],
+      "name": "child_records",
+      "primary_key": {
+        "columns": [
+          "record_id",
+          "revision"
+        ],
+        "name": "PRIMARY"
+      },
+      "table_type": "BASE TABLE",
+      "unique_keys": []
+    },
+    {
+      "collation": "utf8mb4_0900_ai_ci",
+      "columns": [
+        {
+          "character_maximum_length": null,
+          "character_set": null,
+          "collation": null,
+          "column_type": "int unsigned",
+          "comment": "",
+          "data_type": "int",
+          "datetime_precision": null,
+          "default": null,
+          "extra": "",
+          "generation_expression": "",
+          "name": "record_id",
+          "nullable": false,
+          "numeric_precision": 10,
+          "numeric_scale": 0,
+          "ordinal_position": 1
+        },
+        {
+          "character_maximum_length": null,
+          "character_set": null,
+          "collation": null,
+          "column_type": "int unsigned",
+          "comment": "",
+          "data_type": "int",
+          "datetime_precision": null,
+          "default": null,
+          "extra": "",
+          "generation_expression": "",
+          "name": "revision",
+          "nullable": false,
+          "numeric_precision": 10,
+          "numeric_scale": 0,
+          "ordinal_position": 2
+        },
+        {
+          "character_maximum_length": 80,
+          "character_set": "utf8mb4",
+          "collation": "utf8mb4_0900_ai_ci",
+          "column_type": "varchar(80)",
+          "comment": "Unicode label: नमूना",
+          "data_type": "varchar",
+          "datetime_precision": null,
+          "default": "",
+          "extra": "",
+          "generation_expression": "",
+          "name": "label",
+          "nullable": true,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "ordinal_position": 3
+        }
+      ],
+      "comment": "Synthetic unit-test fixture",
+      "constraints": [
+        {
+          "check_clause": null,
+          "columns": [
+            "record_id",
+            "revision"
+          ],
+          "constraint_type": "PRIMARY KEY",
+          "enforced": true,
+          "name": "PRIMARY"
+        },
+        {
+          "check_clause": null,
+          "columns": [
+            "label"
+          ],
+          "constraint_type": "UNIQUE",
+          "enforced": true,
+          "name": "uq_label"
+        }
+      ],
+      "engine": "InnoDB",
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "comment": "",
+          "index_comment": "",
+          "index_type": "BTREE",
+          "name": "PRIMARY",
+          "parts": [
+            {
+              "collation": "A",
+              "column": "record_id",
+              "expression": null,
+              "ordinal_position": 1,
+              "prefix_length": null
+            },
+            {
+              "collation": "A",
+              "column": "revision",
+              "expression": null,
+              "ordinal_position": 2,
+              "prefix_length": null
+            }
+          ],
+          "unique": true,
+          "visible": true
+        },
+        {
+          "comment": "",
+          "index_comment": "prefix index",
+          "index_type": "BTREE",
+          "name": "uq_label",
+          "parts": [
+            {
+              "collation": "D",
+              "column": "label",
+              "expression": null,
+              "ordinal_position": 1,
+              "prefix_length": 20
+            }
+          ],
+          "unique": true,
+          "visible": false
+        }
+      ],
+      "name": "parent_records",
+      "primary_key": {
+        "columns": [
+          "record_id",
+          "revision"
+        ],
+        "name": "PRIMARY"
+      },
+      "table_type": "BASE TABLE",
+      "unique_keys": [
+        {
+          "columns": [
+            "label"
+          ],
+          "name": "uq_label"
+        }
+      ]
+    }
+  ]
+}

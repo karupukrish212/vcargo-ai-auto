@@ -1,0 +1,185 @@
+# Reviewed user metadata. Columns outside reporting scope remain excluded.
+table_name: users
+business_name: 'User Details'
+description: 'Contains information about users in the system.'
+domain: users
+aliases: []
+queryable: true
+verified: true
+source: manual
+reviewed_by: 'Karupu'
+reviewed_on: '2026-10-13'
+columns:
+  userid:
+    business_name: 'User ID'
+    description: 'Unique identifier for each user and it serves as the primary key for this table.'
+    aliases: [user id, user_identifier, user_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  active:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    profile: active_flag
+    value_encoding: numeric
+  approveby:
+    business_name: 'Approver User name'
+    description: 'Name of the user who approved this user record for access to the system.'
+    aliases: [approver user name, approved by user name, approved by,app_user name]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The owner identified this as an approver name. No identity join based on this name is approved; users.username has no declared unique constraint.'
+  approveon:
+    business_name: 'Approval Date and Time'
+    description: 'Date and time when this user record was approved, stored as text in India local time.'
+    aliases: [approval date, approved on, approval time, approval timestamp]
+    semantic_type: user_approved_at
+    date:
+      storage: text
+      mysql_format: '%d-%m-%Y %h:%i:%s %p'
+      timezone: Asia/Kolkata
+      invalid_value_policy: fail_closed
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The owner supplied 20-07-2026 04:33:13 PM as a stored example. Parse the VARCHAR value using the declared format for date comparisons and chronological ordering.'
+  branch:
+    business_name: 'Branch'
+    description: 'The branch to which the user belongs.'
+    aliases: [branch name, branch id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    queryable: false
+  branchcode:
+    profile: branch_code
+    verified: false
+    source: schema_generated
+    queryable: false
+  createdon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    profile: audit_created_text
+  modifiedon:
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    profile: audit_modified_text
+  createdby:
+    profile: created_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  email:
+    business_name: 'user email'
+    description: 'The email address of the user.'
+    aliases: [user email, user email address, user_email, user_email_address,user email id, user_email_id]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  mobileno:
+    business_name: 'user mobile number'
+    description: 'It represent the mobile number of the particular user'
+    aliases: [user mobile no, user mobile number, user_mobile_no, user_mob_no]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  orgid:
+    profile: organisation_reference
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  organizationname:
+    business_name: 'organization name'
+    description: 'It represent the organization name which is belongs to the user'
+    aliases: [organization name, organization_name, org_name, company name, company_name, tenent name, tenent_name]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  password:
+    business_name: 'user login password'
+    description: 'It represent the login password for the user or customera and it stored as encrypted format, so dont display to anyone'
+    aliases: [user_password, user password, usr pwd, usr_pwd]
+    verified: true
+    source: manual
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    queryable: false
+    notes: Keep credential/secret fields outside report queries.
+  status:
+    business_name: 'user status'
+    description: 'Active or inactive status of this user, stored numerically: 0 means inactive and 1 means active.'
+    aliases: [user status, user_status, user login status, user_login_status]
+    semantic_type: status_flag
+    value_encoding: numeric
+    values:
+      '0': 'INACTIVE'
+      '1': 'ACTIVE'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The schema stores status as INT. No automatic equivalence with the separate active flag is defined.'
+  type:
+    business_name: 'User Business Type'
+    description: 'User category recorded as Transporter or Biller.'
+    aliases: [type of user, type_of_user]
+    value_encoding: text
+    values:
+      'Transporter': 'Transporter'
+      'Biller': 'Biller'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The owner confirmed these two stored values and their letter case. Use type for the Transporter/Biller category and usertype for the account classification.'
+  modifiedby:
+    profile: modified_by_user
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+  username:
+    business_name: 'user name'
+    description: 'Name used both to log in and to display this user account.'
+    aliases: [user name, user_name, username, name of the user, login name, display name]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'The owner confirmed that username is both the login name and display name. No uniqueness constraint is declared in the saved schema; use userid for identity joins.'
+  vendorid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+    queryable: false
+  usertype:
+    business_name: 'User Account Classification'
+    description: 'Account classification stored as Admi for the administrator category or user for the user category.'
+    aliases: [user_type, user type]
+    value_encoding: text
+    values:
+      'Admi': 'Administrator category'
+      'user': 'User category'
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'
+    notes: 'Preserve the exact stored spelling and case supplied by the owner, including Admi. These values describe account classifications; permission rules are not defined by this metadata.'

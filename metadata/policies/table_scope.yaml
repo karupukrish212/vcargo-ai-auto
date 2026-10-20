@@ -1,0 +1,29 @@
+# This policy controls report scope; it does not remove ERP tables or change DB grants.
+# User-requested exclusions for the current SQL agent reporting scope.
+# Keep these tables available for future review, including RBAC work.
+# The requested "tokens" table is named "token" in the extracted catalog.
+excluded_patterns:
+  - '*seq'
+  # Exact-name exclusion for a legacy driver table, if present in a future catalog.
+  - 'driver'
+excluded_tables:
+  - comments
+  - email_otp
+  - responsibility
+  - role
+  - rolepermission
+  - rolepermissionheader
+  - roles
+  - rolesresponsibility
+  - screenname
+  - screens
+  - tdriverdocuments
+  - token
+  - tvehicledocuments
+  - user_action
+  - userbranchaccess
+  - userrolesaccess
+  - vehicle
+preferred_tables:
+  - tdriver
+  - tvehicle

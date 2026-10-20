@@ -1,0 +1,1698 @@
+{
+  "format_version": 1,
+  "description": "Synthetic only. Expected selections and aggregate totals were specified independently from the SQL. Covers each current draft example, date/flag boundaries, NULLs, fractional quantities, joins, ties and India midnight.",
+  "tables": {
+    "trip": {
+      "columns": {
+        "tripid": "bigint",
+        "active": "bit",
+        "cancel": "bit",
+        "status": "varchar",
+        "enddate": "date",
+        "tripstarttime": "datetime",
+        "tripendtime": "datetime",
+        "vehicle": "bigint",
+        "driver": "bigint",
+        "customer": "bigint",
+        "source": "varchar",
+        "destination": "varchar",
+        "revenue": "decimal",
+        "profit": "decimal",
+        "tripcost": "decimal",
+        "triptype": "varchar",
+        "goodstype": "varchar",
+        "goodsweight": "decimal"
+      },
+      "rows": [
+        [
+          101,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-01",
+          "2026-08-31 23:00:00",
+          "2026-09-01 12:00:00",
+          1,
+          1,
+          1,
+          "MADURAI",
+          "Natham",
+          "1000.00",
+          "100.00",
+          "900.00",
+          "freight",
+          "rice",
+          "2.50"
+        ],
+        [
+          102,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-30",
+          "2026-09-30 08:00:00",
+          "2026-09-30 23:59:59.999999",
+          1,
+          2,
+          2,
+          "Madurai Depot",
+          "Chennai",
+          "2000.00",
+          "-50.00",
+          "2050.00",
+          "freight",
+          "steel",
+          "5.25"
+        ],
+        [
+          103,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-15",
+          "2026-09-15 08:00:00",
+          "2026-09-15 12:00:00",
+          2,
+          1,
+          1,
+          "Madurai",
+          "Chennai",
+          null,
+          null,
+          null,
+          "freight",
+          "tools",
+          null
+        ],
+        [
+          104,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-20",
+          "2026-09-20 08:00:00",
+          "2026-09-20 12:00:00",
+          2,
+          3,
+          3,
+          "Chennai",
+          "Madurai",
+          "500.00",
+          "-50.00",
+          "450.00",
+          "passenger",
+          null,
+          null
+        ],
+        [
+          105,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-10",
+          "2026-09-10 08:00:00",
+          "2026-09-10 12:00:00",
+          3,
+          4,
+          1,
+          "Madurai",
+          "Chennai",
+          null,
+          null,
+          null,
+          "passenger",
+          "cargo",
+          "999.00"
+        ],
+        [
+          106,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-25",
+          "2026-09-25 08:00:00",
+          "2026-09-25 12:00:00",
+          null,
+          5,
+          null,
+          "Madurai",
+          "Natham",
+          "300.00",
+          "30.00",
+          "270.00",
+          "freight",
+          "cargo",
+          "1.25"
+        ],
+        [
+          107,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-26",
+          "2026-09-26 08:00:00",
+          "2026-09-26 12:00:00",
+          2,
+          6,
+          2,
+          "Madurai",
+          "Natham",
+          "100.00",
+          "-20.00",
+          "120.00",
+          "freight",
+          "cargo",
+          "0.00"
+        ],
+        [
+          108,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-27",
+          "2026-09-27 08:00:00",
+          "2026-09-27 12:00:00",
+          1,
+          7,
+          3,
+          "Madurai",
+          "Chennai",
+          "-10.00",
+          "-10.00",
+          "0.00",
+          "freight",
+          "cargo",
+          "1.25"
+        ],
+        [
+          109,
+          1,
+          0,
+          "ACTIVE",
+          "2026-09-28",
+          "2026-09-28 08:00:00",
+          "2026-09-28 12:00:00",
+          null,
+          null,
+          1,
+          "Madurai",
+          "Natham",
+          null,
+          null,
+          null,
+          "freight",
+          "cargo",
+          null
+        ],
+        [
+          201,
+          1,
+          0,
+          "ACTIVE",
+          "2025-10-01",
+          "2025-09-30 23:00:00",
+          "2025-10-01 12:00:00",
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "40.00",
+          "4.00",
+          "36.00",
+          "freight",
+          "cargo",
+          "0.50"
+        ],
+        [
+          202,
+          1,
+          0,
+          "ACTIVE",
+          "2025-09-30",
+          "2025-09-30 08:00:00",
+          "2025-09-30 12:00:00",
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "8000.00",
+          "800.00",
+          "7200.00",
+          "freight",
+          "cargo",
+          "1.00"
+        ],
+        [
+          203,
+          1,
+          0,
+          "ACTIVE",
+          "2026-08-31",
+          "2026-08-31 08:00:00",
+          "2026-08-31 12:00:00",
+          2,
+          1,
+          2,
+          "Madurai",
+          "Natham",
+          "50.00",
+          "5.00",
+          "45.00",
+          "freight",
+          "cargo",
+          "0.75"
+        ],
+        [
+          204,
+          1,
+          0,
+          "ACTIVE",
+          "2026-10-01",
+          "2026-10-01 08:00:00",
+          "2026-10-01 12:00:00",
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "9000.00",
+          "900.00",
+          "8100.00",
+          "freight",
+          "cargo",
+          "1.00"
+        ],
+        [
+          205,
+          1,
+          0,
+          "ACTIVE",
+          null,
+          "2026-09-15 08:00:00",
+          null,
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "7000.00",
+          "700.00",
+          "6300.00",
+          "freight",
+          "cargo",
+          "1.00"
+        ],
+        [
+          301,
+          0,
+          0,
+          "ACTIVE",
+          "2026-09-10",
+          "2026-09-10 08:00:00",
+          "2026-09-10 12:00:00",
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "10000.00",
+          "0.10",
+          "0.90",
+          "freight",
+          "cargo",
+          "1.00"
+        ],
+        [
+          302,
+          1,
+          1,
+          "ACTIVE",
+          "2026-09-10",
+          "2026-09-10 08:00:00",
+          "2026-09-10 12:00:00",
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "20000.00",
+          "0.10",
+          "0.90",
+          "freight",
+          "cargo",
+          "1.00"
+        ],
+        [
+          303,
+          null,
+          0,
+          "ACTIVE",
+          "2026-09-10",
+          "2026-09-10 08:00:00",
+          "2026-09-10 12:00:00",
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "30000.00",
+          "0.10",
+          "0.90",
+          "freight",
+          "cargo",
+          "1.00"
+        ],
+        [
+          304,
+          1,
+          null,
+          "ACTIVE",
+          "2026-09-10",
+          "2026-09-10 08:00:00",
+          "2026-09-10 12:00:00",
+          1,
+          1,
+          1,
+          "Madurai",
+          "Natham",
+          "40000.00",
+          "0.10",
+          "0.90",
+          "freight",
+          "cargo",
+          "1.00"
+        ]
+      ]
+    },
+    "tvehicle": {
+      "columns": {
+        "tvehicleid": "bigint",
+        "vehiclenumber": "varchar",
+        "active": "varchar",
+        "cancel": "bit"
+      },
+      "rows": [
+        [
+          1,
+          "TN-TEST-01",
+          "1",
+          0
+        ],
+        [
+          2,
+          "TN-TEST-02",
+          "0",
+          1
+        ],
+        [
+          3,
+          "TN-TEST-03",
+          "1",
+          0
+        ],
+        [
+          4,
+          "TN-TEST-04",
+          "1",
+          0
+        ]
+      ]
+    },
+    "tdriver": {
+      "columns": {
+        "tdriverid": "bigint",
+        "name": "varchar",
+        "active": "bit",
+        "cancel": "bit",
+        "licensenumber": "varchar",
+        "licenseexpiry": "date",
+        "phone": "varchar"
+      },
+      "rows": [
+        [
+          1,
+          "Driver Shared",
+          1,
+          0,
+          "TEST-LIC-1",
+          "2026-10-20",
+          "000001"
+        ],
+        [
+          2,
+          "Driver Shared",
+          0,
+          0,
+          "TEST-LIC-2",
+          "2026-10-21",
+          "000002"
+        ],
+        [
+          3,
+          "Driver C",
+          1,
+          0,
+          "TEST-LIC-3",
+          "2026-11-19",
+          "000003"
+        ],
+        [
+          4,
+          "Driver D",
+          1,
+          0,
+          "TEST-LIC-4",
+          "2026-11-20",
+          "000004"
+        ],
+        [
+          5,
+          "Driver E",
+          1,
+          1,
+          "TEST-LIC-5",
+          "2026-10-25",
+          "000005"
+        ],
+        [
+          6,
+          "Driver F",
+          1,
+          0,
+          "TEST-LIC-6",
+          "2026-10-19",
+          "000006"
+        ],
+        [
+          7,
+          "Driver G",
+          1,
+          0,
+          "TEST-LIC-7",
+          null,
+          "000007"
+        ],
+        [
+          8,
+          "Driver H",
+          1,
+          0,
+          "TEST-LIC-8",
+          "2026-11-18",
+          "000008"
+        ],
+        [
+          9,
+          "Driver I",
+          1,
+          0,
+          "TEST-LIC-9",
+          "2026-10-20",
+          "000009"
+        ]
+      ]
+    },
+    "customer": {
+      "columns": {
+        "customerid": "bigint",
+        "customername": "varchar",
+        "active": "bit",
+        "cancel": "bit"
+      },
+      "rows": [
+        [
+          1,
+          "Nandhakumar Alpha",
+          1,
+          0
+        ],
+        [
+          2,
+          "Nandhakumar Beta",
+          0,
+          1
+        ],
+        [
+          3,
+          "Other Customer",
+          1,
+          0
+        ]
+      ]
+    },
+    "maintenance": {
+      "columns": {
+        "maintenanceid": "bigint",
+        "active": "bit",
+        "cancel": "bit",
+        "vehicle": "bigint",
+        "completeddate": "date",
+        "status": "varchar",
+        "totalcost": "decimal"
+      },
+      "rows": [
+        [
+          501,
+          1,
+          0,
+          1,
+          "2026-09-01",
+          "COMPLETED",
+          "1000.25"
+        ],
+        [
+          502,
+          1,
+          0,
+          1,
+          "2026-09-30",
+          "COMPLETED",
+          null
+        ],
+        [
+          503,
+          1,
+          0,
+          2,
+          "2026-09-15",
+          "COMPLETED",
+          "200.10"
+        ],
+        [
+          504,
+          1,
+          0,
+          3,
+          "2026-09-15",
+          "COMPLETED",
+          null
+        ],
+        [
+          505,
+          1,
+          0,
+          1,
+          "2026-09-15",
+          "PENDING",
+          "9000.00"
+        ],
+        [
+          506,
+          0,
+          0,
+          1,
+          "2026-09-15",
+          "COMPLETED",
+          "8000.00"
+        ],
+        [
+          507,
+          1,
+          1,
+          1,
+          "2026-09-15",
+          "COMPLETED",
+          "7000.00"
+        ],
+        [
+          508,
+          1,
+          0,
+          1,
+          "2026-10-01",
+          "COMPLETED",
+          "6000.00"
+        ],
+        [
+          509,
+          1,
+          0,
+          1,
+          null,
+          "COMPLETED",
+          "5000.00"
+        ],
+        [
+          510,
+          1,
+          0,
+          null,
+          "2026-09-15",
+          "COMPLETED",
+          "4000.00"
+        ]
+      ]
+    },
+    "tripinvoice": {
+      "columns": {
+        "invoiceid": "bigint",
+        "active": "bit",
+        "cancel": "bit",
+        "status": "varchar",
+        "issuedate": "date",
+        "totalamount": "decimal"
+      },
+      "rows": [
+        [
+          101,
+          1,
+          0,
+          "pending",
+          "2026-10-01",
+          "1000.00"
+        ],
+        [
+          102,
+          1,
+          0,
+          "paid",
+          "2026-10-10",
+          "2000.00"
+        ],
+        [
+          103,
+          1,
+          0,
+          "overdue",
+          "2026-10-11",
+          null
+        ],
+        [
+          104,
+          1,
+          0,
+          "draft",
+          "2026-10-12",
+          "5000.00"
+        ],
+        [
+          105,
+          0,
+          0,
+          "paid",
+          "2026-10-13",
+          null
+        ],
+        [
+          106,
+          1,
+          1,
+          "pending",
+          "2026-10-14",
+          "9000.00"
+        ],
+        [
+          107,
+          1,
+          0,
+          "paid",
+          "2026-11-01",
+          "4000.00"
+        ],
+        [
+          108,
+          1,
+          0,
+          "paid",
+          "2026-09-30",
+          "7000.00"
+        ],
+        [
+          109,
+          1,
+          0,
+          "cancelled",
+          "2026-10-15",
+          "8000.00"
+        ],
+        [
+          110,
+          null,
+          0,
+          "pending",
+          "2026-10-16",
+          "10000.00"
+        ],
+        [
+          111,
+          1,
+          null,
+          "paid",
+          "2026-10-17",
+          "12000.00"
+        ]
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "maintenance_mixed",
+      "example_id": "maintenance_cost_by_vehicle",
+      "description": "Completed status, active/cancel/date filters, exact decimals, missing costs and nullable vehicle.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "maintenance_count",
+          "total_maintenance_cost",
+          "missing_cost_count"
+        ],
+        "rows": [
+          [
+            1,
+            "TN-TEST-01",
+            2,
+            "1000.25",
+            1
+          ],
+          [
+            2,
+            "TN-TEST-02",
+            1,
+            "200.10",
+            0
+          ],
+          [
+            3,
+            "TN-TEST-03",
+            1,
+            null,
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "licences_india_midnight",
+      "example_id": "driver_licences_expiring",
+      "description": "India date has advanced to 20 October while UTC is still 19 October; include today and day 30.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "tdriverid",
+          "name",
+          "licensenumber",
+          "licenseexpiry",
+          "phone"
+        ],
+        "rows": [
+          [
+            1,
+            "Driver Shared",
+            "TEST-LIC-1",
+            "2026-10-20",
+            "000001"
+          ],
+          [
+            9,
+            "Driver I",
+            "TEST-LIC-9",
+            "2026-10-20",
+            "000009"
+          ],
+          [
+            8,
+            "Driver H",
+            "TEST-LIC-8",
+            "2026-11-18",
+            "000008"
+          ],
+          [
+            3,
+            "Driver C",
+            "TEST-LIC-3",
+            "2026-11-19",
+            "000003"
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "freight_details_mixed",
+      "example_id": "freight_trip_details",
+      "description": "Freight only, decimal kg, actual enddate, NULL and zero weights, deterministic ordering.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "tripid",
+          "source",
+          "destination",
+          "goodstype",
+          "weight_kg",
+          "weight_missing_count"
+        ],
+        "rows": [
+          [
+            102,
+            "Madurai Depot",
+            "Chennai",
+            "steel",
+            "5.25",
+            0
+          ],
+          [
+            101,
+            "MADURAI",
+            "Natham",
+            "rice",
+            "2.50",
+            0
+          ],
+          [
+            106,
+            "Madurai",
+            "Natham",
+            "cargo",
+            "1.25",
+            0
+          ],
+          [
+            108,
+            "Madurai",
+            "Chennai",
+            "cargo",
+            "1.25",
+            0
+          ],
+          [
+            107,
+            "Madurai",
+            "Natham",
+            "cargo",
+            "0.00",
+            0
+          ],
+          [
+            103,
+            "Madurai",
+            "Chennai",
+            "tools",
+            null,
+            1
+          ],
+          [
+            109,
+            "Madurai",
+            "Natham",
+            "cargo",
+            null,
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "vehicle_cost_mixed",
+      "example_id": "trip_cost_by_vehicle",
+      "description": "Sum stored cost once per trip, retain NULL-only vehicle and ignore master flags.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "stored_trip_cost",
+          "stored_trip_cost_missing_count"
+        ],
+        "rows": [
+          [
+            1,
+            "TN-TEST-01",
+            "2950.00",
+            0
+          ],
+          [
+            2,
+            "TN-TEST-02",
+            "570.00",
+            1
+          ],
+          [
+            3,
+            "TN-TEST-03",
+            null,
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "vehicle_profit_mixed",
+      "example_id": "trip_profit_by_vehicle",
+      "description": "Negative stored profit must rank above an unknown total; do not derive profit from revenue/cost.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "stored_trip_profit",
+          "stored_trip_profit_missing_count"
+        ],
+        "rows": [
+          [
+            1,
+            "TN-TEST-01",
+            "40.00",
+            0
+          ],
+          [
+            2,
+            "TN-TEST-02",
+            "-70.00",
+            1
+          ],
+          [
+            3,
+            "TN-TEST-03",
+            null,
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "freight_route_weight",
+      "example_id": "freight_weight_by_route",
+      "description": "Route direction, mixed case/location variants, passenger exclusion, decimal weights and missing count.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "total_trips",
+          "total_weight_kg",
+          "missing_weight_count"
+        ],
+        "rows": [
+          [
+            3,
+            "6.50",
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "driver_ranking_ties",
+      "example_id": "top_five_drivers",
+      "description": "Duplicate names remain separate, driver flags do not filter historical trips, ties resolve by ID.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "driver_id",
+          "driver_name",
+          "completed_trip_count"
+        ],
+        "rows": [
+          [
+            1,
+            "Driver Shared",
+            2
+          ],
+          [
+            2,
+            "Driver Shared",
+            1
+          ],
+          [
+            3,
+            "Driver C",
+            1
+          ],
+          [
+            4,
+            "Driver D",
+            1
+          ],
+          [
+            5,
+            "Driver E",
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "named_customer_details",
+      "example_id": "customer_name_trip_details",
+      "description": "Both name matches, one row per trip, October annual start, INNER joins and customer flags.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "customer_id",
+          "customername",
+          "tripid",
+          "vehiclenumber",
+          "source",
+          "destination",
+          "tripstarttime",
+          "tripendtime",
+          "trip_revenue",
+          "revenue_missing_count"
+        ],
+        "rows": [
+          [
+            1,
+            "Nandhakumar Alpha",
+            101,
+            "TN-TEST-01",
+            "MADURAI",
+            "Natham",
+            "2026-08-31 23:00:00",
+            "2026-09-01 12:00:00",
+            "1000.00",
+            0
+          ],
+          [
+            1,
+            "Nandhakumar Alpha",
+            201,
+            "TN-TEST-01",
+            "Madurai",
+            "Natham",
+            "2025-09-30 23:00:00",
+            "2025-10-01 12:00:00",
+            "40.00",
+            0
+          ],
+          [
+            1,
+            "Nandhakumar Alpha",
+            103,
+            "TN-TEST-02",
+            "Madurai",
+            "Chennai",
+            "2026-09-15 08:00:00",
+            "2026-09-15 12:00:00",
+            null,
+            1
+          ],
+          [
+            1,
+            "Nandhakumar Alpha",
+            105,
+            "TN-TEST-03",
+            "Madurai",
+            "Chennai",
+            "2026-09-10 08:00:00",
+            "2026-09-10 12:00:00",
+            null,
+            1
+          ],
+          [
+            2,
+            "Nandhakumar Beta",
+            102,
+            "TN-TEST-01",
+            "Madurai Depot",
+            "Chennai",
+            "2026-09-30 08:00:00",
+            "2026-09-30 23:59:59.999999",
+            "2000.00",
+            0
+          ],
+          [
+            2,
+            "Nandhakumar Beta",
+            107,
+            "TN-TEST-02",
+            "Madurai",
+            "Natham",
+            "2026-09-26 08:00:00",
+            "2026-09-26 12:00:00",
+            "100.00",
+            0
+          ],
+          [
+            2,
+            "Nandhakumar Beta",
+            203,
+            "TN-TEST-02",
+            "Madurai",
+            "Natham",
+            "2026-08-31 08:00:00",
+            "2026-08-31 12:00:00",
+            "50.00",
+            0
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "all_customer_details",
+      "example_id": "customer_trip_details",
+      "description": "Twelve months, cross-month scheduled start, excluded 13th month, no duplicate trip aggregation.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "customer_id",
+          "customername",
+          "tripid",
+          "vehiclenumber",
+          "source",
+          "destination",
+          "tripstarttime",
+          "tripendtime",
+          "trip_revenue",
+          "revenue_missing_count"
+        ],
+        "rows": [
+          [
+            1,
+            "Nandhakumar Alpha",
+            101,
+            "TN-TEST-01",
+            "MADURAI",
+            "Natham",
+            "2026-08-31 23:00:00",
+            "2026-09-01 12:00:00",
+            "1000.00",
+            0
+          ],
+          [
+            1,
+            "Nandhakumar Alpha",
+            201,
+            "TN-TEST-01",
+            "Madurai",
+            "Natham",
+            "2025-09-30 23:00:00",
+            "2025-10-01 12:00:00",
+            "40.00",
+            0
+          ],
+          [
+            1,
+            "Nandhakumar Alpha",
+            103,
+            "TN-TEST-02",
+            "Madurai",
+            "Chennai",
+            "2026-09-15 08:00:00",
+            "2026-09-15 12:00:00",
+            null,
+            1
+          ],
+          [
+            1,
+            "Nandhakumar Alpha",
+            105,
+            "TN-TEST-03",
+            "Madurai",
+            "Chennai",
+            "2026-09-10 08:00:00",
+            "2026-09-10 12:00:00",
+            null,
+            1
+          ],
+          [
+            2,
+            "Nandhakumar Beta",
+            102,
+            "TN-TEST-01",
+            "Madurai Depot",
+            "Chennai",
+            "2026-09-30 08:00:00",
+            "2026-09-30 23:59:59.999999",
+            "2000.00",
+            0
+          ],
+          [
+            2,
+            "Nandhakumar Beta",
+            107,
+            "TN-TEST-02",
+            "Madurai",
+            "Natham",
+            "2026-09-26 08:00:00",
+            "2026-09-26 12:00:00",
+            "100.00",
+            0
+          ],
+          [
+            2,
+            "Nandhakumar Beta",
+            203,
+            "TN-TEST-02",
+            "Madurai",
+            "Natham",
+            "2026-08-31 08:00:00",
+            "2026-08-31 12:00:00",
+            "50.00",
+            0
+          ],
+          [
+            3,
+            "Other Customer",
+            104,
+            "TN-TEST-02",
+            "Chennai",
+            "Madurai",
+            "2026-09-20 08:00:00",
+            "2026-09-20 12:00:00",
+            "500.00",
+            0
+          ],
+          [
+            3,
+            "Other Customer",
+            108,
+            "TN-TEST-01",
+            "Madurai",
+            "Chennai",
+            "2026-09-27 08:00:00",
+            "2026-09-27 12:00:00",
+            "-10.00",
+            0
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "route_revenue_mixed",
+      "example_id": "trip_revenue_by_route",
+      "description": "Madurai to Natham only; unassigned vehicle revenue and missing revenue stay in the overall route total.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "stored_trip_revenue",
+          "stored_trip_revenue_missing_count"
+        ],
+        "rows": [
+          [
+            "1400.00",
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "vehicle_revenue_mixed",
+      "example_id": "trip_revenue_by_vehicle",
+      "description": "INNER join excludes unassigned trips; each primary-key join preserves one row per trip.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "trip_count",
+          "stored_trip_revenue",
+          "stored_trip_revenue_missing_count"
+        ],
+        "rows": [
+          [
+            1,
+            "TN-TEST-01",
+            3,
+            "2990.00",
+            0
+          ],
+          [
+            2,
+            "TN-TEST-02",
+            3,
+            "600.00",
+            1
+          ],
+          [
+            3,
+            "TN-TEST-03",
+            1,
+            null,
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "overall_revenue_mixed",
+      "example_id": "trip_revenue_total",
+      "description": "Full completion month including month-start cross-month trip, excluding NULL flags and boundaries.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "stored_trip_revenue",
+          "stored_trip_revenue_missing_count"
+        ],
+        "rows": [
+          [
+            "3890.00",
+            3
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "invoice_total_mixed",
+      "example_id": "invoice_billed_total",
+      "description": "Matches the documented INR 3000 example, plus cancelled-status and NULL-flag exclusions.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "invoice_billed_total",
+          "invoice_billed_total_missing_count"
+        ],
+        "rows": [
+          [
+            "3000.00",
+            1
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "empty_trip_revenue",
+      "example_id": "trip_revenue_total",
+      "description": "Empty input is distinct from a known zero or a set of missing values.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "stored_trip_revenue",
+          "stored_trip_revenue_missing_count"
+        ],
+        "rows": [
+          [
+            null,
+            0
+          ]
+        ],
+        "ordered": true
+      },
+      "empty_tables": [
+        "trip"
+      ]
+    },
+    {
+      "id": "all_missing_trip_revenue",
+      "example_id": "trip_revenue_total",
+      "description": "All nine eligible trip revenues missing.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "stored_trip_revenue",
+          "stored_trip_revenue_missing_count"
+        ],
+        "rows": [
+          [
+            null,
+            9
+          ]
+        ],
+        "ordered": true
+      },
+      "null_columns": [
+        "trip.revenue"
+      ]
+    },
+    {
+      "id": "empty_vehicle_cost",
+      "example_id": "trip_cost_by_vehicle",
+      "description": "No qualifying joined rows yields no vehicle groups.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "stored_trip_cost",
+          "stored_trip_cost_missing_count"
+        ],
+        "rows": [],
+        "ordered": true
+      },
+      "empty_tables": [
+        "trip"
+      ]
+    },
+    {
+      "id": "all_missing_vehicle_profit",
+      "example_id": "trip_profit_by_vehicle",
+      "description": "NULL-only groups have missing counts; all totals tie and IDs determine order.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "stored_trip_profit",
+          "stored_trip_profit_missing_count"
+        ],
+        "rows": [
+          [
+            1,
+            "TN-TEST-01",
+            null,
+            3
+          ],
+          [
+            2,
+            "TN-TEST-02",
+            null,
+            3
+          ],
+          [
+            3,
+            "TN-TEST-03",
+            null,
+            1
+          ]
+        ],
+        "ordered": true
+      },
+      "null_columns": [
+        "trip.profit"
+      ]
+    },
+    {
+      "id": "all_missing_invoice_total",
+      "example_id": "invoice_billed_total",
+      "description": "Only the three eligible invoices contribute to the missing count.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "invoice_billed_total",
+          "invoice_billed_total_missing_count"
+        ],
+        "rows": [
+          [
+            null,
+            3
+          ]
+        ],
+        "ordered": true
+      },
+      "null_columns": [
+        "tripinvoice.totalamount"
+      ]
+    },
+    {
+      "id": "empty_invoice_total",
+      "example_id": "invoice_billed_total",
+      "description": "Empty invoice input preserves a NULL total and a zero missing count.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "invoice_billed_total",
+          "invoice_billed_total_missing_count"
+        ],
+        "rows": [
+          [
+            null,
+            0
+          ]
+        ],
+        "ordered": true
+      },
+      "empty_tables": [
+        "tripinvoice"
+      ]
+    },
+    {
+      "id": "empty_maintenance",
+      "example_id": "maintenance_cost_by_vehicle",
+      "description": "Empty maintenance rows return no grouped results.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "maintenance_count",
+          "total_maintenance_cost",
+          "missing_cost_count"
+        ],
+        "rows": [],
+        "ordered": true
+      },
+      "empty_tables": [
+        "maintenance"
+      ]
+    },
+    {
+      "id": "all_missing_maintenance",
+      "example_id": "maintenance_cost_by_vehicle",
+      "description": "Every eligible joined maintenance cost is missing.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "vehicle_id",
+          "vehiclenumber",
+          "maintenance_count",
+          "total_maintenance_cost",
+          "missing_cost_count"
+        ],
+        "rows": [
+          [
+            1,
+            "TN-TEST-01",
+            2,
+            null,
+            2
+          ],
+          [
+            2,
+            "TN-TEST-02",
+            1,
+            null,
+            1
+          ],
+          [
+            3,
+            "TN-TEST-03",
+            1,
+            null,
+            1
+          ]
+        ],
+        "ordered": true
+      },
+      "null_columns": [
+        "maintenance.totalcost"
+      ]
+    },
+    {
+      "id": "empty_licences",
+      "example_id": "driver_licences_expiring",
+      "description": "No drivers yields no expiry alerts.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "tdriverid",
+          "name",
+          "licensenumber",
+          "licenseexpiry",
+          "phone"
+        ],
+        "rows": [],
+        "ordered": true
+      },
+      "empty_tables": [
+        "tdriver"
+      ]
+    },
+    {
+      "id": "licences_before_india_midnight",
+      "example_id": "driver_licences_expiring",
+      "description": "One UTC second before India midnight changes both inclusive date boundaries.",
+      "utc_now": "2026-10-19T18:29:59Z",
+      "expected": {
+        "columns": [
+          "tdriverid",
+          "name",
+          "licensenumber",
+          "licenseexpiry",
+          "phone"
+        ],
+        "rows": [
+          [
+            6,
+            "Driver F",
+            "TEST-LIC-6",
+            "2026-10-19",
+            "000006"
+          ],
+          [
+            1,
+            "Driver Shared",
+            "TEST-LIC-1",
+            "2026-10-20",
+            "000001"
+          ],
+          [
+            9,
+            "Driver I",
+            "TEST-LIC-9",
+            "2026-10-20",
+            "000009"
+          ],
+          [
+            8,
+            "Driver H",
+            "TEST-LIC-8",
+            "2026-11-18",
+            "000008"
+          ]
+        ],
+        "ordered": true
+      }
+    },
+    {
+      "id": "empty_freight_weight",
+      "example_id": "freight_weight_by_route",
+      "description": "Empty freight route has zero trips, NULL weight, and no missing selected weights.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "total_trips",
+          "total_weight_kg",
+          "missing_weight_count"
+        ],
+        "rows": [
+          [
+            0,
+            null,
+            0
+          ]
+        ],
+        "ordered": true
+      },
+      "empty_tables": [
+        "trip"
+      ]
+    },
+    {
+      "id": "all_missing_freight_weight",
+      "example_id": "freight_weight_by_route",
+      "description": "All three eligible freight-route weights missing; passenger remains excluded.",
+      "utc_now": "2026-10-19T18:30:00Z",
+      "expected": {
+        "columns": [
+          "total_trips",
+          "total_weight_kg",
+          "missing_weight_count"
+        ],
+        "rows": [
+          [
+            3,
+            null,
+            3
+          ]
+        ],
+        "ordered": true
+      },
+      "null_columns": [
+        "trip.goodsweight"
+      ]
+    }
+  ]
+}

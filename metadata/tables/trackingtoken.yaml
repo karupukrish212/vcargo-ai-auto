@@ -1,0 +1,60 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: trackingtoken
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  trackingtokenid:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  createdon:
+    verified: false
+    source: schema_generated
+    profile: audit_created_text
+  modifiedon:
+    verified: false
+    source: schema_generated
+    profile: audit_modified_text
+  password:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+    queryable: false
+    notes: Keep credential/secret fields outside report queries.
+  refresh_token:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  token:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+    queryable: false
+    notes: Keep credential/secret fields outside report queries.
+  token_expiry:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  username:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

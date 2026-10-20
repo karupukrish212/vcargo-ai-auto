@@ -1,0 +1,36 @@
+# Editable business metadata. Review only relevant columns; this file is a draft.
+table_name: token
+business_name: ''
+description: ''
+domain: null
+aliases: []
+queryable: true
+verified: false
+source: schema_generated
+reviewed_by: null
+reviewed_on: null
+columns:
+  id:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  created_date:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  exp_date:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated
+  user_id:
+    business_name: ''
+    description: ''
+    aliases: []
+    verified: false
+    source: schema_generated

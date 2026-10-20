@@ -1,0 +1,67 @@
+# Definitions copied from the business meanings already confirmed by the owner.
+# Report aggregation, date selection, and default filters are reviewed separately.
+terms:
+  trip_revenue:
+    description: 'The precalculated INR revenue stored in trip.revenue before trip completion. Read the stored amount directly. Whether it is an estimate, a final amount, or updated after completion remains unspecified.'
+    aliases: [trip revenue, travel revenue, booking revenue]
+    related_tables: [trip]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  trip_cost:
+    description: 'The precalculated INR cost stored in trip.tripcost before trip completion. Read the stored amount directly; its expense components and later updates remain unspecified.'
+    aliases: [trip cost, travel cost, booking cost]
+    related_tables: [trip]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  trip_profit:
+    description: 'The precalculated INR profit stored in trip.profit before trip completion. Read the stored amount directly without reconstructing it from revenue and cost. Its estimated or final status remains unspecified.'
+    aliases: [trip profit, travel profit, booking profit]
+    related_tables: [trip]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  invoice_total:
+    description: 'The INR invoice total stored in tripinvoice.totalamount. This is an invoice-level amount; trip revenue and invoice payment amounts have their own separate definitions.'
+    aliases: [invoice total, invoice total amount]
+    related_tables: [tripinvoice]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  invoice_amount_paid:
+    description: 'The INR amount paid by the customer for an invoice, stored in tripinvoice.amountpaid. Read the stored value directly. Payment-event history is not defined by this column.'
+    aliases: [invoice amount paid, customer paid amount]
+    related_tables: [tripinvoice]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  invoice_balance_due:
+    description: 'The INR balance due from the customer for an invoice, stored in tripinvoice.balancedue. Read the stored balance directly; no recomputation formula is approved.'
+    aliases: [invoice balance due, customer balance due]
+    related_tables: [tripinvoice]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  first_invoice_payment_date:
+    description: 'The date of the first invoice payment, stored in tripinvoice.paymentdate. For partial payments this is the first payment date; it does not date every payment or identify full settlement.'
+    aliases: [first payment date, first invoice payment date]
+    related_tables: [tripinvoice]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+  invoice_item_quantity:
+    description: 'The integer quantity stored in tripinvoiceitem.quantity after backend rounding. Interpret it with the row unit and item description. Use the stored integer directly; original fractional quantities and the exact rounding algorithm are unspecified.'
+    aliases: [invoice item quantity, invoice item qty]
+    related_tables: [tripinvoiceitem]
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-13'

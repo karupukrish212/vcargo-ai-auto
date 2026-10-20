@@ -1,0 +1,48 @@
+# Physical FK relationships already exist in schema_raw.json; do not copy them here.
+# Add manually verified joins missing from the physical catalog, with cardinality.
+relationships:
+  - from: {table: tripinvoice, column: updatedby}
+    to: {table: users, column: userid}
+    relationship: many_to_one
+    type: logical
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-12'
+    notes: 'The project owner confirmed that updatedby references users.userid. The target primary key permits at most one matching user; repeated source references are permitted. No physical foreign key or guaranteed matching row. Source is VARCHAR(255), target is BIGINT; this business confirmation does not establish text encoding or conversion rules. Future SQL validation must handle type compatibility and invalid values explicitly, without relying on implicit MySQL numeric coercion.'
+  - from: {table: tdriver, column: orgid}
+    to: {table: users, column: userid}
+    relationship: many_to_one
+    type: logical
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developer-confirmed mapping relayed by the project owner. Both columns are BIGINT. At most one matching user is guaranteed by the users.userid primary key; repeated source values are permitted by the schema. No physical foreign key or guaranteed matching row.'
+  - from: {table: tdriver, column: createdby}
+    to: {table: users, column: userid}
+    relationship: many_to_one
+    type: logical
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developers confirmed through the project owner that this is always an application-maintained foreign-key reference to users.userid. Target primary key permits at most one matching user; repeated source references are permitted. No physical foreign key. Source is VARCHAR(255), target is BIGINT; this business confirmation does not establish text encoding or conversion rules. Future SQL validation must handle type compatibility and invalid values explicitly, without relying on implicit MySQL numeric coercion.'
+  - from: {table: tdriver, column: modifiedby}
+    to: {table: users, column: userid}
+    relationship: many_to_one
+    type: logical
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developers confirmed through the project owner that this is always an application-maintained foreign-key reference to users.userid. Target primary key permits at most one matching user; repeated source references are permitted. No physical foreign key. Source is VARCHAR(255), target is BIGINT; this business confirmation does not establish text encoding or conversion rules. Future SQL validation must handle type compatibility and invalid values explicitly, without relying on implicit MySQL numeric coercion.'
+  - from: {table: tdriver, column: assignedvehicle}
+    to: {table: tvehicle, column: vehiclenumber}
+    relationship: many_to_one
+    type: logical
+    verified: true
+    source: user_provided
+    reviewed_by: 'Karupu'
+    reviewed_on: '2026-10-09'
+    notes: 'Developer-confirmed equality of stored vehicle numbers relayed by the project owner. Both columns are text. At most one matching vehicle is guaranteed by the unique key on tvehicle.vehiclenumber; repeated source values are permitted by the schema. No physical foreign key or guaranteed matching row.'
